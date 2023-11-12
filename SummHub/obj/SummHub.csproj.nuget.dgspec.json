@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/laszloferreyra/Projects/SummHub/SummHub/SummHub/SummHub.csproj": {}
+    "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj": {}
   },
   "projects": {
-    "/Users/laszloferreyra/Projects/SummHub/SummHub/SummHub/SummHub.csproj": {
+    "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/laszloferreyra/Projects/SummHub/SummHub/SummHub/SummHub.csproj",
+        "projectUniqueName": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
         "projectName": "SummHub",
-        "projectPath": "/Users/laszloferreyra/Projects/SummHub/SummHub/SummHub/SummHub.csproj",
+        "projectPath": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
         "packagesPath": "/Users/laszloferreyra/.nuget/packages/",
-        "outputPath": "/Users/laszloferreyra/Projects/SummHub/SummHub/SummHub/obj/",
+        "outputPath": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/laszloferreyra/.nuget/NuGet/NuGet.Config"

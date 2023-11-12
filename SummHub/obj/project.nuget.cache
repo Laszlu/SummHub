@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mTJk9QwSoLaqZbB+fDxiIMsxsd8GrMmyIT6u67n3QDJp4tdNTNmGKQkcLqPT0VFMJg7UZaFcMFvN4hANxHCVvg==",
+  "dgSpecHash": "bhGNQE1j+xJO43lUaVPHyXDxlDVK/hfQo3PSoTZE/xoBqkWnhI4ECuMOFE9dyEKT/slRiZBuz3vQAny/9t68Dg==",
   "success": true,
-  "projectFilePath": "/Users/laszloferreyra/Projects/SummHub/SummHub/SummHub/SummHub.csproj",
+  "projectFilePath": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
   "expectedPackageFiles": [
     "/Users/laszloferreyra/.nuget/packages/microsoft.aspnetcore.authorization/7.0.13/microsoft.aspnetcore.authorization.7.0.13.nupkg.sha512",
     "/Users/laszloferreyra/.nuget/packages/microsoft.aspnetcore.components/7.0.13/microsoft.aspnetcore.components.7.0.13.nupkg.sha512",
