@@ -9,41 +9,41 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = SummHub
 build_property.RootNamespace = SummHub
-build_property.ProjectDir = /Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/
+build_property.ProjectDir = /Users/davidrid/Documents/GitHub/SummHub/SummHub/
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/laszloferreyra/Documents/GitHub/SummHub/SummHub
+build_property.MSBuildProjectDirectory = /Users/davidrid/Documents/GitHub/SummHub/SummHub
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/App.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/Pages/Counter.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/Pages/FetchData.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/Pages/Index.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/Shared/SurveyPrompt.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/_Imports.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/Shared/MainLayout.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-fwxm9536xr
 
-[/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/Shared/NavMenu.razor]
+[/Users/davidrid/Documents/GitHub/SummHub/SummHub/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-phndx7xzfl

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj": {}
+    "/Users/davidrid/Documents/GitHub/SummHub/SummHub/SummHub.csproj": {}
   },
   "projects": {
-    "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj": {
+    "/Users/davidrid/Documents/GitHub/SummHub/SummHub/SummHub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
+        "projectUniqueName": "/Users/davidrid/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
         "projectName": "SummHub",
-        "projectPath": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
-        "packagesPath": "/Users/laszloferreyra/.nuget/packages/",
-        "outputPath": "/Users/laszloferreyra/Documents/GitHub/SummHub/SummHub/obj/",
+        "projectPath": "/Users/davidrid/Documents/GitHub/SummHub/SummHub/SummHub.csproj",
+        "packagesPath": "/Users/davidrid/.nuget/packages/",
+        "outputPath": "/Users/davidrid/Documents/GitHub/SummHub/SummHub/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/laszloferreyra/.nuget/NuGet/NuGet.Config"
+          "/Users/davidrid/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -60,12 +60,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
+              "version": "[7.0.3, 7.0.3]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.310/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.200/RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
