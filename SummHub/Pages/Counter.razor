@@ -1,5 +1,7 @@
 ﻿@page "/counter"
 
+@inject IJSRuntime jsRuntime
+
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
@@ -14,5 +16,6 @@
     private void IncrementCount()
     {
         currentCount++;
+        jsRuntime.InvokeVoidAsync("console.log", "test");
     }
 }
