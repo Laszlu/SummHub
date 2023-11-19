@@ -5,7 +5,7 @@ namespace Model
 {
     public enum Category
     {
-        TopStorys,
+        TopStories,
         Sports,
         Politics,
         Science,
