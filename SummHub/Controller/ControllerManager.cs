@@ -6,9 +6,10 @@ namespace Controller
 {
     public class ControllerManager
     {
+        // props??
         private ArticlesService articlesService;
 
-        private LanguageDetector detector = new();
+        private LanguageDetector detector;
 
         private void LoadContent(IApiController apiController, Category category)
         {
@@ -70,6 +71,9 @@ namespace Controller
 
         public ControllerManager()
         {
+            articlesService = new();
+            detector = new();
+
             detector.AddAllLanguages();
         }
     }
