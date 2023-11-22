@@ -7,9 +7,7 @@ namespace Controller
 {
     public interface IApiController
     {
-        public string BaseEndpoint { get; set; }
-
-        public List<NewsArticle> CallApi(Category category);
+        public List<NewsArticle> ConvertJsonToList(Category category);
     }
 }
 

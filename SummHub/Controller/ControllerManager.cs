@@ -55,7 +55,7 @@ namespace Controller
 
             try
             {
-                articles = apiController.CallApi(category);
+                articles = apiController.ConvertJsonToList(category);
             }
             catch (System.Exception ex)
             {

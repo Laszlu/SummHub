@@ -1,20 +1,27 @@
 using Model;
+using static Model.NewsApiConstants;
 
 namespace Controller
 {
     public class NewsApiController : IApiController
     {
-        private string _BaseEndpoint;
-
-        public string BaseEndpoint
+        private ApiCaller Caller { get; set; } = new()
         {
-            get => _BaseEndpoint;
-            set => _BaseEndpoint = value;
-        }
+            BaseUrl = BaseUrlNewsApi,
+            ApiKey = ApiKeyNewsApi,
+            TopStories = TopStoriesCategoryNewsApi,
+            SportsCategory = SportsCategoryNewsApi,
+            ScienceCategory = ScienceCategoryNewsApi,
+            BusinessCategory = BusinessCategoryNewsApi,
+            EntertainmentCategory = EntertainmentCategoryNewsApi
+        };
 
-        public List<NewsArticle> CallApi(Category category)
+        public List<NewsArticle> ConvertJsonToList(Category category)
         {
-            throw new NotImplementedException();
+            var articles = new List<NewsArticle>();
+            var jsonString = Caller.CallApi(category);
+
+            return articles;
         }
     }
 }
