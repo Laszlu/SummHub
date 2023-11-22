@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using Controller
+@using Model
 @inject ControllerManager Manager
+@inject HttpClient client
 
 <PageTitle>Index</PageTitle>
 
@@ -8,5 +10,23 @@
 
 Welcome to SummHub.
 
+<button @onclick="() => test()">
+    test
+</button>
+
+@TestString
+
+
+
 @code {
+
+    public string TestString { get; set; }
+    
+    private async void test()
+    {
+        var result = await Manager.testfunc();
+        TestString = result;
+        
+        StateHasChanged();
+    }
 }

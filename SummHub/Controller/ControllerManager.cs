@@ -13,9 +13,9 @@ public class ControllerManager
 
     private LanguageDetector Detector { get; set; }
 
-    public NewsApiController NewsApi { get; set; }
+    public NewsApiController NewsApi;
 
-    // new prop for every other api controller
+    //TODO: new prop for every other api controller
 
     public void LoadContent(IApiController apiController, Category category)
     {
@@ -27,7 +27,7 @@ public class ControllerManager
             {
                 var language = DetectLanguage(article);
 
-                // Uncomment when translation is implemented
+                //TODO: Uncomment when translation is implemented
                 // if (language != null)
                 // {
                 //     if (language != "en")
@@ -55,7 +55,7 @@ public class ControllerManager
 
         try
         {
-            articles = apiController.ConvertJsonToList(category);
+            articles = apiController.GetData(category);
         }
         catch (System.Exception ex)
         {
@@ -72,8 +72,16 @@ public class ControllerManager
 
     // private NewsArticle TranslateNews(NewsArticle article, string language)
     // {
-    //     //Translation API not implemented yet
+    //     //TODO:Translation API not implemented yet
     // }
+
+    // Function for testing api call
+    public async Task<string> testfunc()
+    {
+        Console.WriteLine("manager works");
+        var result = await NewsApi.testfunc();
+        return result;
+    }
 
     public ControllerManager()
     {
