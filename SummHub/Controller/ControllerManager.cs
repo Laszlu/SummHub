@@ -9,12 +9,13 @@ namespace Controller
 {
     public class ControllerManager
     {
-        // props??
-        private ArticlesService articlesService;
+        private ArticlesService ArticlesService { get; set; }
 
-        private LanguageDetector detector;
+        private LanguageDetector Detector { get; set; }
 
         public NewsApiController NewsApi { get; set; }
+        
+        // new prop for every other api controller
 
         public void LoadContent(IApiController apiController, Category category)
         {
@@ -44,7 +45,7 @@ namespace Controller
                     // }
                 }
 
-                articlesService.SaveArticles(allArticles, category);
+                ArticlesService.SaveArticles(allArticles, category);
             }
         }
 
@@ -66,7 +67,7 @@ namespace Controller
 
         public string DetectLanguage(NewsArticle article)
         {
-            return detector.Detect(article.Title);
+            return Detector.Detect(article.Title);
         }
 
         // private NewsArticle TranslateNews(NewsArticle article, string language)
@@ -76,12 +77,12 @@ namespace Controller
 
         public ControllerManager()
         {
-            articlesService = new();
-            detector = new();
+            ArticlesService = new();
+            Detector = new();
 
             NewsApi = new();
 
-            detector.AddAllLanguages();
+            Detector.AddAllLanguages();
         }
     }
 }
