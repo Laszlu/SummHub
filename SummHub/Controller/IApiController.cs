@@ -3,12 +3,11 @@
 
 using Model;
 
-namespace Controller
+namespace Controller;
+
+public interface IApiController
 {
-    public interface IApiController
-    {
-        public List<NewsArticle> ConvertJsonToList(Category category);
-    }
+    public List<NewsArticle> ConvertJsonToList(Category category);
 }
 
 /*********************************************************************************************************************/

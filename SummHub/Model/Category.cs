@@ -1,15 +1,14 @@
 /*********************************************************************************************************************/
 // von David 
 
-namespace Model
+namespace Model;
+
+public enum Category
 {
-    public enum Category
-    {
-        TopStories,
-        Sports,
-        Politics,
-        Science,
-        Business,
-        Entertainment
-    }
+    TopStories,
+    Sports,
+    Politics,
+    Science,
+    Business,
+    Entertainment
 }

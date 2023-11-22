@@ -5,85 +5,84 @@ using Model;
 using static Model.Category;
 using LanguageDetection;
 
-namespace Controller
+namespace Controller;
+
+public class ControllerManager
 {
-    public class ControllerManager
+    private ArticlesService ArticlesService { get; set; }
+
+    private LanguageDetector Detector { get; set; }
+
+    public NewsApiController NewsApi { get; set; }
+
+    // new prop for every other api controller
+
+    public void LoadContent(IApiController apiController, Category category)
     {
-        private ArticlesService ArticlesService { get; set; }
+        var allArticles = GetNews(apiController, category);
 
-        private LanguageDetector Detector { get; set; }
-
-        public NewsApiController NewsApi { get; set; }
-        
-        // new prop for every other api controller
-
-        public void LoadContent(IApiController apiController, Category category)
+        if (allArticles.Count > 0)
         {
-            var allArticles = GetNews(apiController, category);
-
-            if (allArticles.Count > 0)
+            foreach (var article in allArticles)
             {
-                foreach (var article in allArticles)
-                {
-                    var language = DetectLanguage(article);
+                var language = DetectLanguage(article);
 
-                    // Uncomment when translation is implemented
-                    // if (language != null)
-                    // {
-                    //     if (language != "en")
-                    //     {
-                    //         var translatedArticle = TranslateNews(article, language);
+                // Uncomment when translation is implemented
+                // if (language != null)
+                // {
+                //     if (language != "en")
+                //     {
+                //         var translatedArticle = TranslateNews(article, language);
 
-                    //         article.Title = translatedArticle.Title;
-                    //         article.Description = translatedArticle.Description;
-                    //     }
-                    // }
-                    // else
-                    // {
-                    //     article.Title = "";
-                    //     article.Description = "";
-                    // }
-                }
-
-                ArticlesService.SaveArticles(allArticles, category);
-            }
-        }
-
-        public List<NewsArticle> GetNews(IApiController apiController, Category category)
-        {
-            List<NewsArticle> articles = new();
-
-            try
-            {
-                articles = apiController.ConvertJsonToList(category);
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                //         article.Title = translatedArticle.Title;
+                //         article.Description = translatedArticle.Description;
+                //     }
+                // }
+                // else
+                // {
+                //     article.Title = "";
+                //     article.Description = "";
+                // }
             }
 
-            return articles;
+            ArticlesService.SaveArticles(allArticles, category);
         }
+    }
 
-        public string DetectLanguage(NewsArticle article)
+    public List<NewsArticle> GetNews(IApiController apiController, Category category)
+    {
+        List<NewsArticle> articles = new();
+
+        try
         {
-            return Detector.Detect(article.Title);
+            articles = apiController.ConvertJsonToList(category);
         }
-
-        // private NewsArticle TranslateNews(NewsArticle article, string language)
-        // {
-        //     //Translation API not implemented yet
-        // }
-
-        public ControllerManager()
+        catch (System.Exception ex)
         {
-            ArticlesService = new();
-            Detector = new();
-
-            NewsApi = new();
-
-            Detector.AddAllLanguages();
+            Console.WriteLine(ex.Message);
         }
+
+        return articles;
+    }
+
+    public string DetectLanguage(NewsArticle article)
+    {
+        return Detector.Detect(article.Title);
+    }
+
+    // private NewsArticle TranslateNews(NewsArticle article, string language)
+    // {
+    //     //Translation API not implemented yet
+    // }
+
+    public ControllerManager()
+    {
+        ArticlesService = new();
+        Detector = new();
+
+        NewsApi = new();
+
+        Detector.AddAllLanguages();
     }
 }
 
