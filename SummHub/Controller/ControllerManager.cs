@@ -14,7 +14,9 @@ namespace Controller
 
         private LanguageDetector detector;
 
-        private void LoadContent(IApiController apiController, Category category)
+        public NewsApiController NewsApi { get; set; }
+
+        public void LoadContent(IApiController apiController, Category category)
         {
             var allArticles = GetNews(apiController, category);
 
@@ -46,7 +48,7 @@ namespace Controller
             }
         }
 
-        private List<NewsArticle> GetNews(IApiController apiController, Category category)
+        public List<NewsArticle> GetNews(IApiController apiController, Category category)
         {
             List<NewsArticle> articles = new();
 
@@ -62,7 +64,7 @@ namespace Controller
             return articles;
         }
 
-        private string DetectLanguage(NewsArticle article)
+        public string DetectLanguage(NewsArticle article)
         {
             return detector.Detect(article.Title);
         }
@@ -76,6 +78,8 @@ namespace Controller
         {
             articlesService = new();
             detector = new();
+
+            NewsApi = new();
 
             detector.AddAllLanguages();
         }

@@ -5,7 +5,7 @@ using Model;
 
 namespace Controller
 {
-    interface IApiController
+    public interface IApiController
     {
         public string BaseEndpoint { get; set; }
 
