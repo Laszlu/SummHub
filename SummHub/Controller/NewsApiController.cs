@@ -3,6 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Model;
+using Model.ApiData;
 using Newtonsoft.Json;
 using static Model.NewsApiConstants;
 
@@ -13,13 +14,29 @@ public class NewsApiController : IApiController
     //TODO: try to fix injecting httpclient from program.cs
     public HttpClient HttpClient { get; set; } = new();
 
-    public List<NewsArticle> GetData(Category category)
+    public async Task<List<NewsArticle>> GetData(Category category)
     {
         var articles = new List<NewsArticle>();
 
-        var json = CallApi(category);
-        
-        // TODO: implement json conversion
+        string jsonFromApi =  await CallApi(category);
+
+        NewsApiResponse? apiResponse = JsonConvert.DeserializeObject<NewsApiResponse>(jsonFromApi);
+
+        if (apiResponse.Status == Statuses.Ok)
+        {
+            foreach (var newsApiArticle in apiResponse.Articles)
+            {
+                articles.Add(new NewsArticle()
+                {
+                    Title = newsApiArticle.Title,
+                    Description = newsApiArticle.Description,
+                    Author = newsApiArticle.Author,
+                    Url = newsApiArticle.Url,
+                    ImageUrl = newsApiArticle.UrlToImage,
+                    Published = newsApiArticle.PublishedAt
+                });
+            }
+        }
 
         return articles;
     }
@@ -68,14 +85,14 @@ public class NewsApiController : IApiController
     }
     
     // Function for testing api call
-    public async Task<string> testfunc()
+    /*public async Task<string> testfunc()
     {
         Console.WriteLine("apicontroller works");
 
         var result = await CallApi(Category.TopStories);
 
         return result;
-    }
+    }*/
 }
 
 /*********************************************************************************************************************/

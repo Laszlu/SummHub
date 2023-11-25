@@ -12,20 +12,34 @@ Welcome to SummHub.
 
 <button @onclick="() => test()">
     test
-</button>
+</button><br/><br/>
 
-@TestString
-
-
+@if (testbool)
+{
+    @foreach (var article in Manager.ArticlesService.TopStories)
+    {
+        <label>@article.Title</label><br/>
+        <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" height="50px"/><br/>
+    }
+}
 
 @code {
 
-    public string TestString { get; set; }
+    //public string TestString { get; set; }
+
+    private bool testbool = false;
     
     private async void test()
     {
-        var result = await Manager.testfunc();
-        TestString = result;
+        //var result = await Manager.testfunc();
+        //TestString = result;
+
+        if (await Manager.LoadContent(Manager.NewsApi, Category.TopStories))
+        {
+            testbool = true;
+            Console.WriteLine(testbool);
+            Console.WriteLine(Manager.ArticlesService.TopStories);
+        }
         
         StateHasChanged();
     }

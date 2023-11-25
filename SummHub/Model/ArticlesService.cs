@@ -19,7 +19,22 @@ namespace Model
 
         public void SaveArticles(List<NewsArticle> articleList, Category category)
         {
-
+            switch (category)
+            {
+                case Category.TopStories : TopStories = articleList;
+                    break;
+                case Category.Sports: Sports = articleList;
+                    break;
+                case Category.Politics: Politics = articleList;
+                    break;
+                case Category.Science: Science = articleList;
+                    break;
+                case Category.Business: Business = articleList;
+                    break;
+                case Category.Entertainment: Entertainment = articleList;
+                    break;
+                default: break;
+            }
         }
     }
 }

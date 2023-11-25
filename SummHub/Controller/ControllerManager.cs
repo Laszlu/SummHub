@@ -9,7 +9,7 @@ namespace Controller;
 
 public class ControllerManager
 {
-    private ArticlesService ArticlesService { get; set; }
+    public ArticlesService ArticlesService { get; set; }
 
     private LanguageDetector Detector { get; set; }
 
@@ -17,9 +17,11 @@ public class ControllerManager
 
     //TODO: new prop for every other api controller
 
-    public void LoadContent(IApiController apiController, Category category)
+    public async Task<bool> LoadContent(IApiController apiController, Category category)
     {
-        var allArticles = GetNews(apiController, category);
+        var hasLoaded = false;
+        
+        var allArticles = await GetNews(apiController, category);
 
         if (allArticles.Count > 0)
         {
@@ -46,16 +48,24 @@ public class ControllerManager
             }
 
             ArticlesService.SaveArticles(allArticles, category);
+            hasLoaded = true;
         }
+        else
+        {
+            // TODO: Error Response for UI
+            hasLoaded = false;
+        }
+
+        return hasLoaded;
     }
 
-    public List<NewsArticle> GetNews(IApiController apiController, Category category)
+    public async Task<List<NewsArticle>> GetNews(IApiController apiController, Category category)
     {
         List<NewsArticle> articles = new();
 
         try
         {
-            articles = apiController.GetData(category);
+            articles = await apiController.GetData(category);
         }
         catch (System.Exception ex)
         {
@@ -76,12 +86,12 @@ public class ControllerManager
     // }
 
     // Function for testing api call
-    public async Task<string> testfunc()
+    /*public async Task<string> testfunc()
     {
         Console.WriteLine("manager works");
         var result = await NewsApi.testfunc();
         return result;
-    }
+    }*/
 
     public ControllerManager()
     {

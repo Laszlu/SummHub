@@ -7,7 +7,7 @@ namespace Controller;
 
 public interface IApiController
 {
-    public List<NewsArticle> GetData(Category category);
+    public Task<List<NewsArticle>> GetData(Category category);
 
     public Task<string> CallApi(Category category);
 
