@@ -18,7 +18,6 @@ public class NewsApiConstants
 
     public const string GeneralCategoryNewsApi = "category=general";
 
-    public const string NewsApiDateFormat = "yyyy-MM-dd";
 }
 
 public class TranslatorConstants
