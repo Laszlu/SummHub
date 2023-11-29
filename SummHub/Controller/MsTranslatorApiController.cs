@@ -1,3 +1,7 @@
+/**********************************************************************************************************************/
+// von : https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/microsoft-translator-text
+// Bearbeitet von Laszlo
+
 using System.Net.Http.Headers;
 using static Model.TranslatorConstants;
 
