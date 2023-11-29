@@ -9,11 +9,11 @@
 
 Welcome to SummHub.
 
-<button @onclick="() => test()">
+<button @onclick="() => Test()">
     test
 </button><br/><br/>
 
-@if (testbool)
+@if (_testbool)
 {
     @foreach (var article in Manager.ArticlesService.TopStories)
     {
@@ -26,17 +26,17 @@ Welcome to SummHub.
 }
 
 @code {
-    private bool testbool = false;
+    private bool _testbool;
     
-    private async void test()
+    private async void Test()
     {
         //var result = await Manager.testfunc();
         //TestString = result;
 
         if (await Manager.LoadContent(Manager.NewsApi, Category.TopStories))
         {
-            testbool = true;
-            Console.WriteLine(testbool);
+            _testbool = true;
+            Console.WriteLine(_testbool);
             Console.WriteLine(Manager.ArticlesService.TopStories);
         }
         

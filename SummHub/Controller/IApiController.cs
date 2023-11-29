@@ -1,14 +1,12 @@
 /*********************************************************************************************************************/
 // von Laszlo
 
-using Model;
+using SummHub.Model;
 
-namespace Controller;
+namespace SummHub.Controller;
 
 public interface IApiController
 {
-    public HttpClient HttpClient { get; set; }
-    
     public Task<List<NewsArticle>> GetData(Category category);
 
     public Task<string> CallApi(Category category);

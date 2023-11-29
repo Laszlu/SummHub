@@ -1,6 +1,6 @@
 /**********************************************************************************************************************/
 // von David
-namespace Model;
+namespace SummHub.Model;
 
 public class NewsApiConstants
 {

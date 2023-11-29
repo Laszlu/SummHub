@@ -1,6 +1,7 @@
 /*********************************************************************************************************************/
 // von David
-namespace Model
+
+namespace SummHub.Model
 {
     public class ArticlesService
     {
@@ -33,7 +34,6 @@ namespace Model
                     break;
                 case Category.Entertainment: Entertainment = articleList;
                     break;
-                default: break;
             }
         }
     }

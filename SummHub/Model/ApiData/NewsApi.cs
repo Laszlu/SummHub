@@ -1,6 +1,6 @@
 // von: https://github.com/News-API-gh/News-API-csharp/tree/master
 
-namespace Model.ApiData;
+namespace SummHub.Model.ApiData;
 
 public enum Statuses
 {

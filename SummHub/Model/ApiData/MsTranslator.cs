@@ -1,6 +1,6 @@
 /*********************************************************************************************************************/
 
-namespace Model.ApiData;
+namespace SummHub.Model.ApiData;
 
 public class MsTranslatorResponse
 {

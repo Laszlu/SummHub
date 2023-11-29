@@ -1,7 +1,7 @@
 /*********************************************************************************************************************/
 // von Laszlo
 
-namespace Model;
+namespace SummHub.Model;
 
 public class NewsArticle
 {

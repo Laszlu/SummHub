@@ -1,18 +1,16 @@
 /*********************************************************************************************************************/
 // von Laszlo und David
 
-using Microsoft.AspNetCore.Components;
-using Model;
-using Model.ApiData;
 using Newtonsoft.Json;
-using static Model.NewsApiConstants;
+using SummHub.Model;
+using SummHub.Model.ApiData;
+using static SummHub.Model.NewsApiConstants;
 
-namespace Controller;
+namespace SummHub.Controller;
 
 public class NewsApiController : IApiController
 {
-    //TODO: try to fix injecting httpclient from program.cs
-    public HttpClient HttpClient { get; set; } = new();
+    private readonly HttpClient _client;
 
     public async Task<List<NewsArticle>> GetData(Category category)
     {
@@ -43,7 +41,7 @@ public class NewsApiController : IApiController
 
     public async Task<string> CallApi(Category category)
     {
-        var response =  HttpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, BuildQuery(category)));
+        var response =  _client.SendAsync(new HttpRequestMessage(HttpMethod.Get, BuildQuery(category)));
 
         var json = await response;
         
@@ -52,13 +50,11 @@ public class NewsApiController : IApiController
 
     public string? BuildQuery(Category category)
     {
-        var queryString = "";
-
         var categoryString = GetCategory(category);
 
         if (categoryString != null)
         {
-            queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?{categoryString}&{ApiKeyNewsApi}";
+            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?{categoryString}&{ApiKeyNewsApi}";
             return queryString;
         }
         
@@ -93,6 +89,11 @@ public class NewsApiController : IApiController
 
         return result;
     }*/
+
+    public NewsApiController(HttpClient injectedClient)
+    {
+        _client = injectedClient;
+    }
 }
 
 /*********************************************************************************************************************/

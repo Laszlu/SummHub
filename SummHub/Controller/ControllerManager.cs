@@ -1,14 +1,16 @@
 /*********************************************************************************************************************/
 // von Laszlo & David
-using Model;
+
 using LanguageDetection;
-namespace Controller;
+using SummHub.Model;
+
+namespace SummHub.Controller;
 
 public class ControllerManager
 {
     public ArticlesService ArticlesService { get; set; }
     private LanguageDetector Detector { get; set; }
-    public MsTranslatorApiController Translator { get; set; }
+    private MsTranslatorApiController Translator { get; set; }
     public NewsApiController NewsApi { get; set; }
 
     //TODO: new prop for every other api controller
@@ -17,7 +19,7 @@ public class ControllerManager
     /// Main Pipeline for loading Content
     public async Task<bool> LoadContent(IApiController apiController, Category category)
     {
-        var hasLoaded = false;
+        bool hasLoaded;
         
         var allArticles = await GetNews(apiController, category);
 
@@ -32,7 +34,7 @@ public class ControllerManager
                 
                 if (language != "en")
                 {
-                    var translatedArticle = await TranslateNews(article, language);
+                    var translatedArticle = await TranslateNews(article);
 
                     article.Title = translatedArticle.Title;
                     article.Description = translatedArticle.Description;
@@ -54,7 +56,7 @@ public class ControllerManager
     }
     /*****************************************************************************************************************/
     
-    public async Task<List<NewsArticle>> GetNews(IApiController apiController, Category category)
+    private async Task<List<NewsArticle>> GetNews(IApiController apiController, Category category)
     {
         List<NewsArticle> articles = new();
 
@@ -62,7 +64,7 @@ public class ControllerManager
         {
             articles = await apiController.GetData(category);
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
@@ -75,7 +77,7 @@ public class ControllerManager
         return Detector.Detect(article.Title);
     }
 
-    private async Task<NewsArticle> TranslateNews(NewsArticle article, string language)
+    private async Task<NewsArticle> TranslateNews(NewsArticle article)
     {
         var translatedTitle = await Translator.Translate(article.Title);
         var translatedDescription = await Translator.Translate(article.Description);
@@ -100,12 +102,13 @@ public class ControllerManager
         return result;
     }*/
 
-    public ControllerManager()
+    public ControllerManager(HttpClient injectedClient)
     {
+        var client = injectedClient;
         ArticlesService = new();
         Detector = new();
-        Translator = new();
-        NewsApi = new();
+        Translator = new(client);
+        NewsApi = new(client);
 
         Detector.AddAllLanguages();
     }
