@@ -13,7 +13,7 @@ public class ControllerManager
 
     private LanguageDetector Detector { get; set; }
 
-    public NewsApiController NewsApi;
+    public NewsApiController NewsApi { get; set; }
 
     //TODO: new prop for every other api controller
 

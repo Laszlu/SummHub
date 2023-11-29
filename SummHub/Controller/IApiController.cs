@@ -7,6 +7,8 @@ namespace Controller;
 
 public interface IApiController
 {
+    public HttpClient HttpClient { get; set; }
+    
     public Task<List<NewsArticle>> GetData(Category category);
 
     public Task<string> CallApi(Category category);
