@@ -18,7 +18,7 @@ public class DetectedLanguage
 public class Translation
 {
     public string Text { get; set; }
-    public string to { get; set; }  
+    public string To { get; set; }  
 }
 
 /*[{
