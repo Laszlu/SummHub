@@ -1,22 +1,20 @@
 /*********************************************************************************************************************/
 // von Laszlo & David
-
 using Model;
-using static Model.Category;
 using LanguageDetection;
-
 namespace Controller;
 
 public class ControllerManager
 {
     public ArticlesService ArticlesService { get; set; }
-
     private LanguageDetector Detector { get; set; }
-
     public NewsApiController NewsApi { get; set; }
 
     //TODO: new prop for every other api controller
-
+    
+    
+    // Main Pipeline for loading Content
+    /******************************************************************************************************************/
     public async Task<bool> LoadContent(IApiController apiController, Category category)
     {
         var hasLoaded = false;
@@ -59,6 +57,7 @@ public class ControllerManager
         return hasLoaded;
     }
 
+    //
     public async Task<List<NewsArticle>> GetNews(IApiController apiController, Category category)
     {
         List<NewsArticle> articles = new();

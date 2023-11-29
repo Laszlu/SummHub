@@ -15,7 +15,6 @@ public class NewsApiConstants
     public const string ScienceCategoryNewsApi = "category=science";
     public const string BusinessCategoryNewsApi = "category=business";
     public const string EntertainmentCategoryNewsApi = "category=entertainment";
-
     public const string GeneralCategoryNewsApi = "category=general";
 
 }
