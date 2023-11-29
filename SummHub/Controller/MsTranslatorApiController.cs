@@ -7,29 +7,42 @@ public class MsTranslatorApiController
 {
     public HttpClient HttpClient { get; set; } = new();
 
-    public async Task<string?> Translate(string textToTranslate)
+    public async Task<string?> Translate(string? textToTranslate)
     {
-        var request = new HttpRequestMessage
+        if (!string.IsNullOrEmpty(textToTranslate))
         {
-            Method = HttpMethod.Post,
-            RequestUri = new Uri(UriMsTranslatorApi),
-            Headers =
+            textToTranslate = textToTranslate.Replace(@"""", "*");
+            Console.WriteLine(textToTranslate);
+        
+            var request = new HttpRequestMessage
             {
-                { ApiKeyPropMsTranslator, ApiKeyMsTranslator },
-                { ApiHostPropMsTranslator, ApiHostMsTranslator },
-            },
-            Content = new StringContent($"[{{\"Text\":\"{textToTranslate}\"}}]")
-            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"{UriMsTranslatorApi}"),
                 Headers =
                 {
-                    ContentType = new MediaTypeHeaderValue(MediaTypeMsTranslator)
+                    { ApiKeyPropMsTranslator, ApiKeyMsTranslator },
+                    { ApiHostPropMsTranslator, ApiHostMsTranslator },
+                },
+                Content = new StringContent($"[{{\"Text\":\"{textToTranslate}\"}}]")
+                {
+                    Headers =
+                    {
+                        ContentType = new MediaTypeHeaderValue(MediaTypeMsTranslator)
+                    }
                 }
-            }
-        };
+            };
+        
+            //--------------------
+            //Console.WriteLine(request);
 
-        using var response = await HttpClient.SendAsync(request);
-        response.EnsureSuccessStatusCode();
-        var body = await response.Content.ReadAsStringAsync();
-        return body;
+            using var response = await HttpClient.SendAsync(request);
+            //needs try catch
+            //Console.WriteLine(response);
+            response.EnsureSuccessStatusCode();
+            var body = await response.Content.ReadAsStringAsync();
+            return body;
+        }
+        
+        return String.Empty;
     }
 }

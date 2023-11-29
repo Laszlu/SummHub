@@ -8,13 +8,13 @@ public class ControllerManager
 {
     public ArticlesService ArticlesService { get; set; }
     private LanguageDetector Detector { get; set; }
+    public MsTranslatorApiController Translator { get; set; }
     public NewsApiController NewsApi { get; set; }
 
     //TODO: new prop for every other api controller
     
-    
-    // Main Pipeline for loading Content
-    /******************************************************************************************************************/
+    /*****************************************************************************************************************/
+    /// Main Pipeline for loading Content
     public async Task<bool> LoadContent(IApiController apiController, Category category)
     {
         var hasLoaded = false;
@@ -26,23 +26,19 @@ public class ControllerManager
             foreach (var article in allArticles)
             {
                 var language = DetectLanguage(article);
+                
+                // Console.WriteLine(language);
+                // Console.WriteLine(article);
+                
+                if (language != "en")
+                {
+                    var translatedArticle = await TranslateNews(article, language);
 
-                //TODO: Uncomment when translation is implemented
-                // if (language != null)
-                // {
-                //     if (language != "en")
-                //     {
-                //         var translatedArticle = TranslateNews(article, language);
-
-                //         article.Title = translatedArticle.Title;
-                //         article.Description = translatedArticle.Description;
-                //     }
-                // }
-                // else
-                // {
-                //     article.Title = "";
-                //     article.Description = "";
-                // }
+                    article.Title = translatedArticle.Title;
+                    article.Description = translatedArticle.Description;
+                }
+                
+                //Thread.Sleep(200);
             }
 
             ArticlesService.SaveArticles(allArticles, category);
@@ -56,8 +52,8 @@ public class ControllerManager
 
         return hasLoaded;
     }
-
-    //
+    /*****************************************************************************************************************/
+    
     public async Task<List<NewsArticle>> GetNews(IApiController apiController, Category category)
     {
         List<NewsArticle> articles = new();
@@ -74,15 +70,27 @@ public class ControllerManager
         return articles;
     }
 
-    public string DetectLanguage(NewsArticle article)
+    private string DetectLanguage(NewsArticle article)
     {
         return Detector.Detect(article.Title);
     }
 
-    // private NewsArticle TranslateNews(NewsArticle article, string language)
-    // {
-    //     //TODO:Translation API not implemented yet
-    // }
+    private async Task<NewsArticle> TranslateNews(NewsArticle article, string language)
+    {
+        var translatedTitle = await Translator.Translate(article.Title);
+        var translatedDescription = await Translator.Translate(article.Description);
+        
+        if (translatedTitle != null && translatedDescription != null)
+        {
+            article.Title = translatedTitle;
+            article.Description = translatedDescription;
+            return article;
+        }
+
+        article.Title = String.Empty;
+        article.Description = String.Empty;
+        return article;
+    }
 
     // Function for testing api call
     /*public async Task<string> testfunc()
@@ -96,7 +104,7 @@ public class ControllerManager
     {
         ArticlesService = new();
         Detector = new();
-
+        Translator = new();
         NewsApi = new();
 
         Detector.AddAllLanguages();

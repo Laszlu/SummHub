@@ -2,7 +2,6 @@
 @using Controller
 @using Model
 @inject ControllerManager Manager
-@inject HttpClient client
 
 <PageTitle>Index</PageTitle>
 
@@ -18,15 +17,15 @@ Welcome to SummHub.
 {
     @foreach (var article in Manager.ArticlesService.TopStories)
     {
-        <label>@article.Title</label><br/>
-        <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" height="50px"/><br/>
+        if (article.Title != String.Empty)
+        {
+            <label>@article.Title</label><br/>
+            <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" height="50px"/><br/>
+        }
     }
 }
 
 @code {
-
-    //public string TestString { get; set; }
-
     private bool testbool = false;
     
     private async void test()
