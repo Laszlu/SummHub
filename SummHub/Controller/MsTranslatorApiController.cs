@@ -9,10 +9,12 @@ namespace Controller;
 
 public class MsTranslatorApiController
 {
-    public HttpClient HttpClient { get; set; } = new();
+    private HttpClient HttpClient { get; set; } = new();
 
     public async Task<string?> Translate(string? textToTranslate)
     {
+        string body;
+        
         if (!string.IsNullOrEmpty(textToTranslate))
         {
             textToTranslate = textToTranslate.Replace(@"""", "*");
@@ -35,18 +37,26 @@ public class MsTranslatorApiController
                     }
                 }
             };
-        
-            //--------------------
-            //Console.WriteLine(request);
-
+            
             using var response = await HttpClient.SendAsync(request);
-            //needs try catch
-            //Console.WriteLine(response);
-            response.EnsureSuccessStatusCode();
-            var body = await response.Content.ReadAsStringAsync();
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                body = await response.Content.ReadAsStringAsync();
+                return body;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                body = string.Empty;
+            }
             return body;
         }
         
-        return String.Empty;
+        body = string.Empty;
+        return body;
     }
 }
