@@ -2,7 +2,10 @@
 // von : https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/microsoft-translator-text
 // Bearbeitet von Laszlo
 
+using System.Globalization;
 using System.Net.Http.Headers;
+using Model.ApiData;
+using Newtonsoft.Json;
 using static Model.TranslatorConstants;
 
 namespace Controller;
@@ -13,8 +16,6 @@ public class MsTranslatorApiController
 
     public async Task<string?> Translate(string? textToTranslate)
     {
-        string body;
-        
         if (!string.IsNullOrEmpty(textToTranslate))
         {
             textToTranslate = textToTranslate.Replace(@"""", "*");
@@ -42,21 +43,20 @@ public class MsTranslatorApiController
             try
             {
                 response.EnsureSuccessStatusCode();
-                body = await response.Content.ReadAsStringAsync();
-                return body;
+                var body = await response.Content.ReadAsStringAsync();
+                var translatorResponse = 
+                    JsonConvert.DeserializeObject<MsTranslatorResponse[]>(body);
+                return translatorResponse[0].Translations[0].Text;
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine(e.Message);
             }
-            finally
-            {
-                body = string.Empty;
-            }
-            return body;
+            return string.Empty;
         }
         
-        body = string.Empty;
-        return body;
+        return string.Empty;
+        
+        //TODO: Implement custom errors 
     }
 }

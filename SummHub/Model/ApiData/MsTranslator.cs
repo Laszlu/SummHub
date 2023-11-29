@@ -2,17 +2,17 @@
 
 namespace Model.ApiData;
 
-public class MsTranslator
+public class MsTranslatorResponse
 {
     public DetectedLanguage DetectedLanguage { get; set; }
-    public Translation Translation { get; set; }
+    public Translation[] Translations { get; set; }
 }
 
 
 public class DetectedLanguage
 {
     public string Language { get; set; }
-    public int Score { get; set; }
+    public float Score { get; set; }
 }
 
 public class Translation
