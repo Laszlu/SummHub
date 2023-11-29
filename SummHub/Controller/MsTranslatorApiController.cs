@@ -32,7 +32,4 @@ public class MsTranslatorApiController
         var body = await response.Content.ReadAsStringAsync();
         return body;
     }
-    
-
-
 }
