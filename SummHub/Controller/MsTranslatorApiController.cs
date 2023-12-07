@@ -9,7 +9,7 @@ using static SummHub.Model.TranslatorConstants;
 
 namespace SummHub.Controller;
 
-public class MsTranslatorApiController
+public class MsTranslatorApiController : IMsTranslatorApiController
 {
     private readonly HttpClient _client;
 

@@ -8,12 +8,9 @@ namespace SummHub.Controller;
 
 public class ControllerManager
 {
-    public ArticlesService ArticlesService { get; set; }
-    private LanguageDetector Detector { get; set; }
-    private MsTranslatorApiController Translator { get; set; }
-    public NewsApiController NewsApi { get; set; }
-
-    //TODO: new prop for every other api controller
+    private ArticlesService ArticlesService { get; }
+    private LanguageDetector Detector { get; }
+    private MsTranslatorApiController Translator { get; }
     
     /*****************************************************************************************************************/
     /// Main Pipeline for loading Content
@@ -102,13 +99,12 @@ public class ControllerManager
         return result;
     }*/
 
-    public ControllerManager(HttpClient injectedClient)
+    public ControllerManager(ArticlesService articlesService, NewsApiController newsApi,
+        MsTranslatorApiController translator, LanguageDetector detector)
     {
-        var client = injectedClient;
-        ArticlesService = new();
-        Detector = new();
-        Translator = new(client);
-        NewsApi = new(client);
+        ArticlesService = articlesService;
+        Detector = detector;
+        Translator = translator;
 
         Detector.AddAllLanguages();
     }

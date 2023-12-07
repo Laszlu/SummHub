@@ -3,6 +3,7 @@
 
 namespace SummHub.Model
 {
+
     public class ArticlesService
     {
         public List<NewsArticle> TopStories { get; set; } = new ();

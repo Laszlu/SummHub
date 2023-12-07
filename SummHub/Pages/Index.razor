@@ -2,6 +2,8 @@
 @using Controller
 @using Model
 @inject ControllerManager Manager
+@inject NewsApiController NewsApi
+@inject ArticlesService _ArticlesService
 
 <PageTitle>Index</PageTitle>
 
@@ -15,7 +17,7 @@ Welcome to SummHub.
 
 @if (_testbool)
 {
-    @foreach (var article in Manager.ArticlesService.TopStories)
+    @foreach (var article in _ArticlesService.TopStories)
     {
         if (article.Title != String.Empty)
         {
@@ -33,11 +35,11 @@ Welcome to SummHub.
         //var result = await Manager.testfunc();
         //TestString = result;
 
-        if (await Manager.LoadContent(Manager.NewsApi, Category.TopStories))
+        if (await Manager.LoadContent(NewsApi, Category.TopStories))
         {
             _testbool = true;
             Console.WriteLine(_testbool);
-            Console.WriteLine(Manager.ArticlesService.TopStories);
+            Console.WriteLine(_ArticlesService.TopStories);
         }
         
         StateHasChanged();
