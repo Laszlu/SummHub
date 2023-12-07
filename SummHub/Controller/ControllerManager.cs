@@ -8,9 +8,9 @@ namespace SummHub.Controller;
 
 public class ControllerManager
 {
-    private ArticlesService ArticlesService { get; }
-    private LanguageDetector Detector { get; }
-    private MsTranslatorApiController Translator { get; }
+    private readonly ArticlesService _articlesService;
+    private readonly LanguageDetector _detector;
+    private readonly MsTranslatorApiController _translator;
     
     /*****************************************************************************************************************/
     /// Main Pipeline for loading Content
@@ -40,7 +40,7 @@ public class ControllerManager
                 //Thread.Sleep(200);
             }
 
-            ArticlesService.SaveArticles(allArticles, category);
+            _articlesService.SaveArticles(allArticles, category);
             hasLoaded = true;
         }
         else
@@ -71,13 +71,13 @@ public class ControllerManager
 
     private string DetectLanguage(NewsArticle article)
     {
-        return Detector.Detect(article.Title);
+        return _detector.Detect(article.Title);
     }
 
     private async Task<NewsArticle> TranslateNews(NewsArticle article)
     {
-        var translatedTitle = await Translator.Translate(article.Title);
-        var translatedDescription = await Translator.Translate(article.Description);
+        var translatedTitle = await _translator.Translate(article.Title);
+        var translatedDescription = await _translator.Translate(article.Description);
         
         if (translatedTitle != null && translatedDescription != null)
         {
@@ -102,11 +102,11 @@ public class ControllerManager
     public ControllerManager(ArticlesService articlesService, NewsApiController newsApi,
         MsTranslatorApiController translator, LanguageDetector detector)
     {
-        ArticlesService = articlesService;
-        Detector = detector;
-        Translator = translator;
+        _articlesService = articlesService;
+        _detector = detector;
+        _translator = translator;
 
-        Detector.AddAllLanguages();
+        _detector.AddAllLanguages();
     }
 }
 
