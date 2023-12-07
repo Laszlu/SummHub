@@ -1,0 +1,36 @@
+.nav-title {
+    width: 10vw;
+    background-color: black;
+    height: inherit;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.nav-title a {
+    font-size: 2vh;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-link-container {
+    display: flex;
+    width: 90vw;
+}
+
+.nav-link-container nav {
+    display: flex;
+    width: inherit;
+    align-items: center;
+}
+
+.nav-link-container nav div {
+    width: 5vw;
+    text-align: center;
+}
+
+.nav-link-container nav div a {
+    font-size: 1.5vh;
+    text-decoration: none;
+    color: black;
+}

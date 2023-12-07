@@ -1,0 +1,6 @@
+.nav-container {
+    width: 100vw;
+    height: 5vh;
+    background-color: gray;
+    display: flex;
+}
