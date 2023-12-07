@@ -10,11 +10,10 @@ public class ControllerManager
 {
     private readonly ArticlesService _articlesService;
     private readonly LanguageDetector _detector;
-    private readonly MsTranslatorApiController _translator;
     
     /*****************************************************************************************************************/
     /// Main Pipeline for loading Content
-    public async Task<bool> LoadContent(IApiController apiController, Category category)
+    public async Task<bool> LoadContent(IApiController apiController, Category category, IMsTranslatorApiController translator)
     {
         bool hasLoaded;
         
@@ -31,7 +30,7 @@ public class ControllerManager
                 
                 if (language != "en")
                 {
-                    var translatedArticle = await TranslateNews(article);
+                    var translatedArticle = await TranslateNews(article, translator);
 
                     article.Title = translatedArticle.Title;
                     article.Description = translatedArticle.Description;
@@ -74,10 +73,10 @@ public class ControllerManager
         return _detector.Detect(article.Title);
     }
 
-    private async Task<NewsArticle> TranslateNews(NewsArticle article)
+    private async Task<NewsArticle> TranslateNews(NewsArticle article, IMsTranslatorApiController translator)
     {
-        var translatedTitle = await _translator.Translate(article.Title);
-        var translatedDescription = await _translator.Translate(article.Description);
+        var translatedTitle = await translator.Translate(article.Title);
+        var translatedDescription = await translator.Translate(article.Description);
         
         if (translatedTitle != null && translatedDescription != null)
         {
@@ -104,7 +103,6 @@ public class ControllerManager
     {
         _articlesService = articlesService;
         _detector = detector;
-        _translator = translator;
 
         _detector.AddAllLanguages();
     }
