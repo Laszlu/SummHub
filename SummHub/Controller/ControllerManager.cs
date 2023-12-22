@@ -13,7 +13,8 @@ public class ControllerManager
     
     /*****************************************************************************************************************/
     /// Main Pipeline for loading Content
-    public async Task<bool> LoadContent(IApiController apiController, Category category, IMsTranslatorApiController translator)
+    public async Task<bool> LoadContent(IApiController apiController, Category category, 
+        IMsTranslatorApiController translator)
     {
         bool hasLoaded;
         
@@ -85,8 +86,8 @@ public class ControllerManager
             return article;
         }
 
-        article.Title = String.Empty;
-        article.Description = String.Empty;
+        article.Title = string.Empty;
+        article.Description = string.Empty;
         return article;
     }
 

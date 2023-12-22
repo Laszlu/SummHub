@@ -16,11 +16,11 @@ Welcome to SummHub.
     test
 </button><br/><br/>
 
-@if (_testbool)
+@if (_testBool)
 {
     @foreach (var article in ArticleService.TopStories)
     {
-        if (article.Title != String.Empty)
+        if (article.Title != string.Empty)
         {
             <label>@article.Title</label><br/>
             <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" height="50px"/><br/>
@@ -29,7 +29,7 @@ Welcome to SummHub.
 }
 
 @code {
-    private bool _testbool;
+    private bool _testBool;
     
     private async void Test()
     {
@@ -38,8 +38,8 @@ Welcome to SummHub.
 
         if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator))
         {
-            _testbool = true;
-            Console.WriteLine(_testbool);
+            _testBool = true;
+            Console.WriteLine(_testBool);
             Console.WriteLine(ArticleService.TopStories);
         }
         
