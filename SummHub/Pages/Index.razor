@@ -18,15 +18,28 @@ Welcome to SummHub.
 
 @if (_testBool)
 {
-    @foreach (var article in ArticleService.TopStories)
+    <div class="tiles-container">
+        @foreach (var article in ArticleService.TopStories)
+        {
+            <div class="tile">
+                <div>
+                    <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" alt="Placeholder"/>
+                </div>
+                <h2>@article.Title.Substring(0, Math.Min(article.Title.Length, 80))</h2>
+            </div>
+        }
+    </div>
+    
+    
+    @*@foreach (var article in ArticleService.TopStories)
     {
         if (article.Title != string.Empty)
         {
-            <label>@article.Title</label><br/>
+            <label></label><br/>
             <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" 
                  height="50px"/><br/>
         }
-    }
+    }*@
 }
 
 @code {

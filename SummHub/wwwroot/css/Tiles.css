@@ -1,0 +1,31 @@
+.tiles-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 35px;
+    padding: 20px;
+}
+
+.tile{
+    width: 400px;
+    margin: 10px;
+    text-align: center;
+    background-color: rgba(40 40 40);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tile img{
+    width: 100%;
+}
+
+.tile div{
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tile h2{
+    margin: 0 15px 10px 15px;
+}
