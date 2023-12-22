@@ -63,21 +63,15 @@ public class NewsApiController : IApiController
     
     public string? GetCategory(Category category)
     {
-        switch (category)
+        return category switch
         {
-            case Category.TopStories:
-                return GeneralCategoryNewsApi;
-            case Category.Sports:
-                return SportsCategoryNewsApi;
-            case Category.Science:
-                return ScienceCategoryNewsApi;
-            case Category.Business:
-                return BusinessCategoryNewsApi;
-            case Category.Entertainment:
-                return EntertainmentCategoryNewsApi;
-            default:
-                return null;
-        }
+            Category.TopStories => GeneralCategoryNewsApi,
+            Category.Sports => SportsCategoryNewsApi,
+            Category.Science => ScienceCategoryNewsApi,
+            Category.Business => BusinessCategoryNewsApi,
+            Category.Entertainment => EntertainmentCategoryNewsApi,
+            _ => null
+        };
     }
     
     // Function for testing api call

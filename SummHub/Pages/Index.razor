@@ -63,16 +63,17 @@
         if (ArticleService.GetArticleList(category)!.Count > 0)
         {
             CurrentArticles = ArticleService.GetArticleList(category)!;
+            StateHasChanged();
         }
         else
         {
             if (await Manager.LoadContent(NewsApi, category, Translator))
             {
                 _testBool = true;
+                CurrentArticles = ArticleService.GetArticleList(category)!;
+                StateHasChanged();
             }
         }
-
-        StateHasChanged();
     }
 
     private async void Test()
