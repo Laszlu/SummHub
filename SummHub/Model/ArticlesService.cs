@@ -6,17 +6,17 @@ namespace SummHub.Model
 
     public class ArticlesService
     {
-        public List<NewsArticle> TopStories { get; set; } = new ();
+        private List<NewsArticle> TopStories { get; set; } = new ();
 
-        public List<NewsArticle> Sports { get; set; } = new ();
+        private List<NewsArticle> Sports { get; set; } = new ();
 
-        public List<NewsArticle> Politics { get; set; } = new ();
+        private List<NewsArticle> Politics { get; set; } = new ();
 
-        public List<NewsArticle> Science { get; set; } = new ();
+        private List<NewsArticle> Science { get; set; } = new ();
 
-        public List<NewsArticle> Business { get; set; } = new ();
+        private List<NewsArticle> Business { get; set; } = new ();
 
-        public List<NewsArticle> Entertainment { get; set; } = new ();
+        private List<NewsArticle> Entertainment { get; set; } = new ();
 
 
         public void SaveArticles(List<NewsArticle> articleList, Category category)
@@ -36,6 +36,20 @@ namespace SummHub.Model
                 case Category.Entertainment: Entertainment = articleList;
                     break;
             }
+        }
+
+        public List<NewsArticle>? GetArticleList(Category category)
+        {
+            return category switch
+            {
+                Category.TopStories => TopStories,
+                Category.Sports => Sports,
+                Category.Politics => Politics,
+                Category.Science => Science,
+                Category.Business => Business,
+                Category.Entertainment => Entertainment,
+                _ => null
+            };
         }
     }
 }

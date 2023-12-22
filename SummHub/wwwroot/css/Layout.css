@@ -1,6 +1,33 @@
 .nav-container {
     width: 100vw;
-    height: 5vh;
-    background-color: gray;
+    height: 75px;
+    background-color: black;
     display: flex;
+    position: fixed;
+    top: 0;
+}
+
+.category-container{
+    width: 100vw;
+    height: auto;
+    display: flex;
+    background-color: rgba(40 40 40);
+    justify-content: space-evenly;
+    position: fixed;
+    top: 75px;
+}
+
+.category-button{
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.category-button:hover{
+    background-color: rebeccapurple;
+    border-radius: 10px;
 }

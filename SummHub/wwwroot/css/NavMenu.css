@@ -7,10 +7,8 @@
     display: flex;
 }
 
-.nav-title a {
-    font-size: 2vh;
-    color: white;
-    text-decoration: none;
+.nav-title a img{
+    height: 50px;
 }
 
 .nav-link-container {
@@ -22,6 +20,7 @@
     display: flex;
     width: inherit;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .nav-link-container nav div {
@@ -30,7 +29,7 @@
 }
 
 .nav-link-container nav div a {
-    font-size: 1.5vh;
+    font-size: 30px;
     text-decoration: none;
-    color: black;
+    color: white;
 }

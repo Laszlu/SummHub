@@ -8,43 +8,73 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to SummHub.
-
-<button @onclick="() => Test()">
-    test
-</button><br/><br/>
+<div class="category-container">
+    <button class="category-button" @onclick="() => LoadPageContent(Category.TopStories)">
+        Top Stories
+    </button>
+    <button class="category-button" @onclick="() => LoadPageContent(Category.Sports)">
+        Sports
+    </button>
+    <button class="category-button" @onclick="() => LoadPageContent(Category.Politics)">
+        Politics
+    </button>
+    <button class="category-button" @onclick="() => LoadPageContent(Category.Science)">
+        Science
+    </button>
+    <button class="category-button" @onclick="() => LoadPageContent(Category.Business)">
+        Business
+    </button>
+    <button class="category-button" @onclick="() => LoadPageContent(Category.Entertainment)">
+        Entertainment
+    </button>
+</div>
 
 @if (_testBool)
 {
     <div class="tiles-container">
-        @foreach (var article in ArticleService.TopStories)
+        @foreach (var article in CurrentArticles)
         {
             <div class="tile">
                 <div>
                     <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" alt="Placeholder"/>
                 </div>
-                <h2>@article.Title.Substring(0, Math.Min(article.Title.Length, 80))</h2>
+                @if (article.Title.Length > 70)
+                {
+                    <h2>@article.Title.Substring(0, Math.Min(article.Title.Length, 70))...</h2>
+                }
+                else
+                {
+                    <h2>@article.Title</h2>
+                }
             </div>
         }
     </div>
-    
-    
-    @*@foreach (var article in ArticleService.TopStories)
-    {
-        if (article.Title != string.Empty)
-        {
-            <label></label><br/>
-            <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" 
-                 height="50px"/><br/>
-        }
-    }*@
 }
 
 @code {
     private bool _testBool;
-    
+
+    private List<NewsArticle> CurrentArticles { get; set; } = new();
+
+    //TODO: Load TopStories on Start with Loading animation
+
+    private async void LoadPageContent(Category category)
+    {
+        if (ArticleService.GetArticleList(category)!.Count > 0)
+        {
+            CurrentArticles = ArticleService.GetArticleList(category)!;
+        }
+        else
+        {
+            if (await Manager.LoadContent(NewsApi, category, Translator))
+            {
+                _testBool = true;
+            }
+        }
+
+        StateHasChanged();
+    }
+
     private async void Test()
     {
         //var result = await Manager.testfunc();
@@ -54,9 +84,10 @@ Welcome to SummHub.
         {
             _testBool = true;
             Console.WriteLine(_testBool);
-            Console.WriteLine(ArticleService.TopStories);
+            Console.WriteLine(CurrentArticles);
         }
-        
+
         StateHasChanged();
     }
+
 }
