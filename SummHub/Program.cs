@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using LanguageDetection;
+using MudBlazor.Services;
 using SummHub;
 using SummHub.Controller;
 using SummHub.Model;
@@ -15,5 +16,7 @@ builder.Services.AddSingleton<ArticlesService>();
 builder.Services.AddSingleton<NewsApiController>();
 builder.Services.AddSingleton<MsTranslatorApiController>();
 builder.Services.AddSingleton<ControllerManager>();
+
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

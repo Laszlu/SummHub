@@ -1,0 +1,37 @@
+@inject IJSRuntime jsRuntime
+@using SummHub.Model
+
+
+<div class="reader-body">
+        <img src="@Article.ImageUrl" alt="Article Image"/>
+        <div class="reader-text">
+            <h2>@Article.Title</h2>
+            <div>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            @Article.Author
+                        </td>
+                        <td>
+                            @Article.Published.ToString()
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                @Article.Description
+            </p>
+            <button class="source-button" @onclick="OpenSourceLink">Open Source</button>
+        </div>
+    </div>
+
+@code {
+    [Parameter] public NewsArticle Article { get; set; }
+
+    private async void OpenSourceLink()
+    {
+        await jsRuntime.InvokeVoidAsync("open", Article.Url, "_blank");
+    }
+}
