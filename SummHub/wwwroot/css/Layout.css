@@ -31,3 +31,14 @@
     background-color: rebeccapurple;
     border-radius: 10px;
 }
+
+.category-button-selected{
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: rebeccapurple;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+}
