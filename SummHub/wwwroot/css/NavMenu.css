@@ -1,5 +1,5 @@
 .nav-title {
-    width: 10vw;
+    width: 300px;
     background-color: black;
     height: inherit;
     align-items: center;
@@ -13,7 +13,7 @@
 
 .nav-link-container {
     display: flex;
-    width: 90vw;
+    width: 100%;
 }
 
 .nav-link-container nav {
@@ -24,7 +24,7 @@
 }
 
 .nav-link-container nav div {
-    width: 5vw;
+    width: 150px;
     text-align: center;
 }
 
