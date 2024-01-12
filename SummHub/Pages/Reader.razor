@@ -2,36 +2,78 @@
 @using SummHub.Model
 
 
-<div class="reader-body">
-        <img src="@Article.ImageUrl" alt="Article Image"/>
-        <div class="reader-text">
-            <h2>@Article.Title</h2>
-            <div>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            @Article.Author
-                        </td>
-                        <td>
-                            @Article.Published.ToString()
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+<table class="reader-table">
+    <tbody>
+    <tr>
+        <td>
+            <button class="close-button-invisible sides top-bottom" onclick="@CloseReader"></button>
+        </td>
+        <td>
+            <button class="close-button-invisible top-bottom center" onclick="@CloseReader"></button>
+        </td>
+        <td>
+            <button class="close-button-invisible sides top-bottom" onclick="@CloseReader"></button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="close-button-invisible sides middle" onclick="@CloseReader"></button>
+        </td>
+        <td>
+            <div class="reader-body">
+                @if (Article.ImageUrl != null)
+                {
+                    <img src="@Article.ImageUrl" alt="Article Image"/>
+                }
+                <div class="reader-text">
+                    <h2>@Article.Title</h2>
+                    <div>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    @Article.Author
+                                </td>
+                                <td>
+                                    @Article.Published.ToString()
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        @Article.Description
+                    </p>
+                    <button class="source-button" @onclick="OpenSourceLink">Open Source</button>
+                </div>
             </div>
-            <p>
-                @Article.Description
-            </p>
-            <button class="source-button" @onclick="OpenSourceLink">Open Source</button>
-        </div>
-    </div>
+        </td>
+        <td>
+            <button class="close-button-invisible sides middle" onclick="@CloseReader"></button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="close-button-invisible sides top-bottom" onclick="@CloseReader"></button>
+        </td>
+        <td>
+            <button class="close-button-invisible top-bottom center" onclick="@CloseReader"></button>
+        </td>
+        <td>
+            <button class="close-button-invisible sides top-bottom" onclick="@CloseReader"></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 
 @code {
     [Parameter] public NewsArticle Article { get; set; }
+    [Parameter] public EventCallback CloseReader { get; set; }
 
     private async void OpenSourceLink()
     {
         await jsRuntime.InvokeVoidAsync("open", Article.Url, "_blank");
     }
+
 }

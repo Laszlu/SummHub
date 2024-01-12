@@ -11,39 +11,53 @@
 <div>
     <div style="height: 50px">
         <div class="category-container">
-            <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button") @onclick="() => { _contentIsLoaded = false; ChangeSelectedCategoryView(Category.TopStories); LoadPageContent(Category.TopStories); }">
+            <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button") 
+                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.TopStories); LoadPageContent(Category.TopStories); }">
                 Top Stories
             </button>
-            <button class=@(_selectedCategoryView[Category.Sports] ? "category-button-selected" : "category-button") @onclick="() => { _contentIsLoaded = false; ChangeSelectedCategoryView(Category.Sports); LoadPageContent(Category.Sports); }">
+            <button class=@(_selectedCategoryView[Category.Sports] ? "category-button-selected" : "category-button") 
+                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Sports); LoadPageContent(Category.Sports); }">
                 Sports
             </button>
 
             @* Currently no data for this category, can be implemented later *@
-            @*<button class=@(_selectedCategoryView[Category.Politics] ? "category-button-selected" : "category-button") @onclick="() => { _contentIsLoaded = false; ChangeSelectedCategoryView(Category.Politics); LoadPageContent(Category.Politics); }">
+            @*<button class=@(_selectedCategoryView[Category.Politics] ? "category-button-selected" : "category-button") 
+                      @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Politics); LoadPageContent(Category.Politics); }">
                 Politics
             </button>*@
 
-            <button class=@(_selectedCategoryView[Category.Science] ? "category-button-selected" : "category-button") @onclick="() => { _contentIsLoaded = false; ChangeSelectedCategoryView(Category.Science); LoadPageContent(Category.Science); }">
+            <button class=@(_selectedCategoryView[Category.Science] ? "category-button-selected" : "category-button") 
+                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Science); LoadPageContent(Category.Science); }">
                 Science
             </button>
-            <button class=@(_selectedCategoryView[Category.Business] ? "category-button-selected" : "category-button") @onclick="() => { _contentIsLoaded = false; ChangeSelectedCategoryView(Category.Business); LoadPageContent(Category.Business); }">
+            <button class=@(_selectedCategoryView[Category.Business] ? "category-button-selected" : "category-button") 
+                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Business); LoadPageContent(Category.Business); }">
                 Business
             </button>
-            <button class=@(_selectedCategoryView[Category.Entertainment] ? "category-button-selected" : "category-button") @onclick="() => { _contentIsLoaded = false; ChangeSelectedCategoryView(Category.Entertainment); LoadPageContent(Category.Entertainment); }">
+            <button class=@(_selectedCategoryView[Category.Entertainment] ? "category-button-selected" : "category-button") 
+                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Entertainment); LoadPageContent(Category.Entertainment); }">
                 Entertainment
             </button>
         </div>
     </div>
 
     <div>
-        @if (_contentIsLoaded)
+        @if (_categoryIsLoaded)
         {
             <div class="tiles-container" style=@(_readerIsOpen ? "visibility: hidden" : "visibility: visible")>
                 @foreach (var article in CurrentArticles)
                 {
                     <div class="tile" @onclick="() => { SelectedArticle = article; _readerIsOpen = true; }">
+                        
                         <div>
-                            <img src="https://www.tagesspiegel.de/gesellschaft/medien-_-ki/images/google-logo/alternates/BASE_1_1_W1000/google-logo.jpeg" alt="Placeholder"/>
+                            @if (article.ImageUrl != null)
+                            {
+                                <img class="article-img" src="@article.ImageUrl" alt="article image"/>
+                            }
+                            else
+                            {
+                                <img class="tile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Google_News_icon.svg/293px-Google_News_icon.svg.png" alt="Placeholder"/>
+                            }
                         </div>
                         @if (article.Title.Length > 70)
                         {
@@ -71,8 +85,8 @@
 
         @if (_readerIsOpen)
         {
-            <MudOverlay Visible="true" DarkBackground="true" @onclick="() => { _readerIsOpen = false; StateHasChanged(); }">
-                <Reader Article="SelectedArticle"/>
+            <MudOverlay Visible="true" DarkBackground="true">
+                <Reader Article="SelectedArticle" CloseReader="@(() => { _readerIsOpen = false; StateHasChanged(); })"/>
             </MudOverlay>
         }
     </div>
@@ -80,9 +94,12 @@
 
 
 @code {
-    private bool _contentIsLoaded;
+    private bool _categoryIsLoaded;
+    private bool _allContentIsLoaded;
     private bool _readerIsOpen;
 
+    //disabled="@(_allContentIsLoaded ? "false" : "true")"
+    
     private Dictionary<Category, bool> _selectedCategoryView = new Dictionary<Category, bool>()
     {
         { Category.TopStories, false },
@@ -102,8 +119,7 @@
 
     protected override void OnInitialized()
     {
-        ChangeSelectedCategoryView(Category.TopStories);
-        LoadPageContent(Category.TopStories);
+        StartLoadingContent();
         base.OnInitialized();
     }
 
@@ -122,23 +138,41 @@
         _selectedCategoryView[category] = false;
     }
 
-    private async void LoadPageContent(Category category)
+    private async Task LoadPageContent(Category category)
     {
         if (ArticleService.GetArticleList(category)!.Count > 0)
         {
             CurrentArticles = ArticleService.GetArticleList(category)!;
-            _contentIsLoaded = true;
+            _categoryIsLoaded = true;
             StateHasChanged();
         }
         else
         {
             if (await Manager.LoadContent(NewsApi, category, Translator))
             {
-                _contentIsLoaded = true;
-                CurrentArticles = ArticleService.GetArticleList(category)!;
+                _categoryIsLoaded = true;
                 StateHasChanged();
             }
         }
+    }
+
+    private void ShowPageContent(Category category)
+    {
+        CurrentArticles = ArticleService.GetArticleList(category)!;
+        StateHasChanged();
+    }
+
+    private async void StartLoadingContent()
+    {
+        ChangeSelectedCategoryView(Category.TopStories);
+        await LoadPageContent(Category.TopStories);
+        ShowPageContent(Category.TopStories);
+        await LoadPageContent(Category.Sports);
+        await LoadPageContent(Category.Science);
+        await LoadPageContent(Category.Business);
+        await LoadPageContent(Category.Entertainment);
+        _allContentIsLoaded = true;
+        StateHasChanged();
     }
 
     private async void Test()
@@ -148,8 +182,8 @@
 
         if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator))
         {
-            _contentIsLoaded = true;
-            Console.WriteLine(_contentIsLoaded);
+            _categoryIsLoaded = true;
+            Console.WriteLine(_categoryIsLoaded);
             Console.WriteLine(CurrentArticles);
         }
 

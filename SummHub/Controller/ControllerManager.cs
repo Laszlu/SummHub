@@ -12,7 +12,7 @@ public class ControllerManager
     private readonly LanguageDetector _detector;
     
     /*****************************************************************************************************************/
-    /// Main Pipeline for loading Content
+    /// Main Pipeline for loading all Content
     public async Task<bool> LoadContent(IApiController apiController, Category category, 
         IMsTranslatorApiController translator)
     {
@@ -39,7 +39,9 @@ public class ControllerManager
                 
                 //Thread.Sleep(200);
             }
-
+            //-----------------//
+            Console.WriteLine(allArticles.First().ImageUrl); 
+            //-----------------//
             _articlesService.SaveArticles(allArticles, category);
             hasLoaded = true;
         }

@@ -6,7 +6,6 @@
     overflow: scroll;
     text-align: center;
     padding: 0 !important;
-    margin-top: 100px;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -25,6 +24,7 @@
 }
 
 .reader-body h2{
+    margin-top: 5px;
     text-align: center;
     text-wrap: normal;
     font-size: 40px;
@@ -66,4 +66,30 @@
 
 .source-button:hover{
     background-color: rebeccapurple;
+}
+
+.close-button-invisible{
+    background: transparent;
+    color: transparent;
+    border: none;
+}
+
+.sides{
+    width: 17.5vw !important;
+}
+
+.top-bottom{
+    height: 7.5vh !important;
+}
+
+.center{
+    width: 65vw !important;
+}
+
+.middle{
+    height: 85vh !important;
+}
+
+.reader-table{
+    width: 100vw !important;
 }
