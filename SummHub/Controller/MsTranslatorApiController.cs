@@ -18,7 +18,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
         if (!string.IsNullOrEmpty(textToTranslate))
         {
             textToTranslate = textToTranslate.Replace(@"""", "*");
-            Console.WriteLine(textToTranslate);
+            //Console.WriteLine(textToTranslate);
         
             var request = new HttpRequestMessage
             {

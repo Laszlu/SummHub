@@ -81,15 +81,16 @@ public class ControllerManager
         var translatedTitle = await translator.Translate(article.Title);
         var translatedDescription = await translator.Translate(article.Description);
         
-        if (translatedTitle != null && translatedDescription != null)
+        if (translatedTitle != string.Empty && translatedDescription != string.Empty)
         {
             article.Title = translatedTitle;
             article.Description = translatedDescription;
             return article;
         }
 
-        article.Title = string.Empty;
-        article.Description = string.Empty;
+        //article.Title = string.Empty;
+        //article.Description = string.Empty;
+        Console.WriteLine("Translation failed"); //TODO: move to constants
         return article;
     }
 
