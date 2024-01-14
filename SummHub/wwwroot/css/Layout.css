@@ -16,6 +16,7 @@
     justify-content: space-evenly;
     position: fixed;
     top: 75px;
+    padding-top: 5px;
 }
 
 .category-button{
@@ -26,6 +27,14 @@
     border: none;
     font-weight: bold;
     font-size: 20px;
+    border-radius: 10px;
+}
+
+.category-button-skeleton{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .category-button:hover{

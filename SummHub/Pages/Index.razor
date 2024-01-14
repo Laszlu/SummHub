@@ -5,13 +5,27 @@
 @inject NewsApiController NewsApi
 @inject ArticlesService ArticleService
 @inject MsTranslatorApiController Translator
+@inject SearchService SearchService
 
 <PageTitle>Index</PageTitle>
+
+
 
 <div>
     <div style="height: 50px">
         <div class="category-container">
-            <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
+            @if (!_allContentIsLoaded)
+            {
+                @for (int i = 0; i < 5; i++)
+                {
+                    <div class="category-button-skeleton">
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Height="100%" Width="100%" />
+                    </div>
+                }
+            }
+            else
+            {
+                <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
                     @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.TopStories); ShowPageContent(Category.TopStories); }">
                 Top Stories
             </button>
@@ -38,17 +52,26 @@
                     @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Entertainment); ShowPageContent(Category.Entertainment); }">
                 Entertainment
             </button>
+            }
         </div>
+    </div>
+    
+    <div class="search-bar">
+        <EditForm Model="@SearchInput" OnValidSubmit="() => { FilteredArticles = SearchService.FilterArticles(CurrentArticles, SearchInput.Query); }" class="search-bar-form">
+            <DataAnnotationsValidator/>
+            <InputText class="search-bar-input" @bind-Value="@SearchInput.Query" placeholder="Search..."></InputText>
+            <ValidationMessage For="() => SearchInput.Query"></ValidationMessage>
+        </EditForm>
     </div>
 
     <div>
         @if (_categoryIsLoaded)
         {
             <div class="tiles-container" style=@(_readerIsOpen ? "visibility: hidden" : "visibility: visible")>
-                @foreach (var article in CurrentArticles)
+                @foreach (var article in FilteredArticles)
                 {
                     <div class="tile" @onclick="() => { SelectedArticle = article; _readerIsOpen = true; }">
-                        
+
                         <div>
                             @if (article.ImageUrl != null)
                             {
@@ -99,7 +122,7 @@
     private bool _readerIsOpen;
 
     //disabled="@(_allContentIsLoaded ? "false" : "true")"
-    
+
     private Dictionary<Category, bool> _selectedCategoryView = new Dictionary<Category, bool>()
     {
         { Category.TopStories, false },
@@ -113,6 +136,9 @@
     private NewsArticle SelectedArticle { get; set; }
 
     private List<NewsArticle> CurrentArticles { get; set; } = new();
+    private List<NewsArticle> FilteredArticles { get; set; } = new();
+
+    private SearchInputModel SearchInput { get; set; } = new();
 
     /*****************************************************************************************************************/
 
@@ -137,33 +163,7 @@
     {
         _selectedCategoryView[category] = false;
     }
-
-    private async Task LoadPageContent(Category category)
-    {
-        if (ArticleService.GetArticleList(category)!.Count > 0)
-        {
-            CurrentArticles = ArticleService.GetArticleList(category)!;
-            _categoryIsLoaded = true;
-            StateHasChanged();
-        }
-        else
-        {
-            if (await Manager.LoadContent(NewsApi, category, Translator))
-            {
-                _categoryIsLoaded = true;
-                StateHasChanged();
-            }
-        }
-    }
-
-    private void ShowPageContent(Category category)
-    {
-        _categoryIsLoaded = true;
-        Console.WriteLine($"now showing {category}");
-        CurrentArticles = ArticleService.GetArticleList(category)!;
-        StateHasChanged();
-    }
-
+    
     private async void StartLoadingContent()
     {
         ChangeSelectedCategoryView(Category.TopStories);
@@ -174,6 +174,24 @@
         await LoadPageContent(Category.Business);
         await LoadPageContent(Category.Entertainment);
         _allContentIsLoaded = true;
+        StateHasChanged();
+    }
+
+    private async Task LoadPageContent(Category category)
+    {
+        if (await Manager.LoadContent(NewsApi, category, Translator))
+        {
+            _categoryIsLoaded = true;
+            StateHasChanged();
+        }
+    }
+
+    private void ShowPageContent(Category category)
+    {
+        _categoryIsLoaded = true;
+        Console.WriteLine($"now showing {category}");
+        CurrentArticles = ArticleService.GetArticleList(category)!;
+        FilteredArticles = CurrentArticles;
         StateHasChanged();
     }
 

@@ -16,6 +16,7 @@ builder.Services.AddSingleton<ArticlesService>();
 builder.Services.AddSingleton<NewsApiController>();
 builder.Services.AddSingleton<MsTranslatorApiController>();
 builder.Services.AddSingleton<ControllerManager>();
+builder.Services.AddSingleton<SearchService>();
 
 builder.Services.AddMudServices();
 
