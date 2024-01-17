@@ -49,7 +49,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
             }
             catch (HttpRequestException e)
             {
-                Console.WriteLine(e.Message);
+                //Console.WriteLine(e.Message);
             }
             return string.Empty;
         }

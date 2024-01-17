@@ -14,6 +14,9 @@ public class ControllerManager
     public Languages Languages { get; set; }
 
     public string CurrentLanguage { get; set; } = "en";
+    public string PreviousLanguage { get; set; } = "en";
+
+    public Category CurrentCategory { get; set; } = Category.TopStories;
     
     /*****************************************************************************************************************/
     /// Main Pipeline for loading all Content
@@ -94,7 +97,7 @@ public class ControllerManager
 
         //article.Title = string.Empty;
         //article.Description = string.Empty;
-        Console.WriteLine("Translation failed"); //TODO: move to constants
+        //Console.WriteLine("Translation failed"); //TODO: move to constants
         return article;
     }
 

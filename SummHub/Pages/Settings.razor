@@ -11,7 +11,7 @@
         <h2>Language</h2>
 
         <InputSelect @bind-Value="@Model.Language">
-            <option selected="selected" value="@Manager.Languages.LanguageDictionary["English"].Item2">
+            <option value="@Manager.Languages.LanguageDictionary["English"].Item2">
                 @Manager.Languages.LanguageDictionary["English"].Item1
             </option>
             <option value="@Manager.Languages.LanguageDictionary["Spanish"].Item2">
@@ -63,11 +63,13 @@
     protected override void OnInitialized()
     {
         Model = new();
-        Model.Language = Manager.Languages.LanguageDictionary["English"].Item2;
+        Model.Language = Manager.CurrentLanguage;
+        Console.WriteLine($"Language set to {Manager.CurrentLanguage} on Initialitation");
     }
 
     private void SubmitSettings()
     {
+        Manager.PreviousLanguage = Manager.CurrentLanguage;
         Manager.CurrentLanguage = Model.Language;
     }
 

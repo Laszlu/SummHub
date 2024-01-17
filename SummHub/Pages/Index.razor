@@ -26,30 +26,36 @@
             else
             {
                 <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.TopStories); ShowPageContent(Category.TopStories); }">
+                        @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.TopStories; 
+                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                 Top Stories
             </button>
             <button class=@(_selectedCategoryView[Category.Sports] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Sports); ShowPageContent(Category.Sports); }">
+                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Sports; 
+                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                 Sports
             </button>
 
             @* Currently no data for this category, can be implemented later *@
             @*<button class=@(_selectedCategoryView[Category.Politics] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                      @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Politics); LoadPageContent(Category.Politics); }">
+                      @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Politics;
+                      ChangeSelectedCategoryView(Manager.CurrentCategory); LoadPageContent(Manager.CurrentCategory); }">
                 Politics
             </button>*@
 
             <button class=@(_selectedCategoryView[Category.Science] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Science); ShowPageContent(Category.Science); }">
+                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Science; 
+                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                 Science
             </button>
             <button class=@(_selectedCategoryView[Category.Business] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Business); ShowPageContent(Category.Business); }">
+                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Business; 
+                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                 Business
             </button>
             <button class=@(_selectedCategoryView[Category.Entertainment] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; ChangeSelectedCategoryView(Category.Entertainment); ShowPageContent(Category.Entertainment); }">
+                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Entertainment; 
+                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                 Entertainment
             </button>
             }
@@ -139,17 +145,14 @@
     private List<NewsArticle> FilteredArticles { get; set; } = new();
 
     private SearchInputModel SearchInput { get; set; } = new();
-    
-    private string SelectedLanguage { get; set; }
 
     /*****************************************************************************************************************/
 
-
     protected override void OnInitialized()
     {
+        Console.WriteLine($"Initialized Index page with Language {Manager.CurrentLanguage}");
         StartLoadingContent();
         base.OnInitialized();
-        SelectedLanguage = Manager.Languages.LanguageDictionary["English"].Item2;
     }
 
     private void ChangeSelectedCategoryView(Category category)
@@ -169,13 +172,22 @@
     
     private async void StartLoadingContent()
     {
-        ChangeSelectedCategoryView(Category.TopStories);
-        await LoadPageContent(Category.TopStories, SelectedLanguage);
-        ShowPageContent(Category.TopStories);
-        await LoadPageContent(Category.Sports, SelectedLanguage);
-        await LoadPageContent(Category.Science, SelectedLanguage);
-        await LoadPageContent(Category.Business, SelectedLanguage);
-        await LoadPageContent(Category.Entertainment, SelectedLanguage);
+        ChangeSelectedCategoryView(Manager.CurrentCategory);
+        
+        if (ArticleService.GetArticleList(Manager.CurrentCategory)[0] == null || Manager.CurrentLanguage != Manager.PreviousLanguage)
+        {
+            await LoadPageContent(Category.TopStories, Manager.CurrentLanguage);
+            await LoadPageContent(Category.Sports, Manager.CurrentLanguage);
+            await LoadPageContent(Category.Science, Manager.CurrentLanguage);
+            await LoadPageContent(Category.Business, Manager.CurrentLanguage);
+            await LoadPageContent(Category.Entertainment, Manager.CurrentLanguage);
+            ShowPageContent(Manager.CurrentCategory);
+        }
+        else
+        {
+            ShowPageContent(Manager.CurrentCategory);
+        }
+        
         _allContentIsLoaded = true;
         StateHasChanged();
     }
@@ -203,7 +215,7 @@
         //var result = await Manager.testfunc();
         //TestString = result;
 
-        if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator, SelectedLanguage))
+        if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator, Manager.CurrentLanguage))
         {
             _categoryIsLoaded = true;
             Console.WriteLine(_categoryIsLoaded);
