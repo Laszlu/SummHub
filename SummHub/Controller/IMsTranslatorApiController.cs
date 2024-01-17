@@ -2,5 +2,5 @@ namespace SummHub.Controller;
 
 public interface IMsTranslatorApiController
 {
-    Task<string?> Translate(string? textToTranslate);
+    Task<string?> Translate(string? textToTranslate, string language);
 }

@@ -13,7 +13,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
 {
     private readonly HttpClient _client;
 
-    public async Task<string?> Translate(string? textToTranslate)
+    public async Task<string?> Translate(string? textToTranslate, string language)
     {
         if (!string.IsNullOrEmpty(textToTranslate))
         {
@@ -23,7 +23,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri($"{UriMsTranslatorApi}"),
+                RequestUri = new Uri($"{UriMsTranslatorApiPart1}{language}{UriMsTranslatorApiPart2}"),
                 Headers =
                 {
                     { ApiKeyPropMsTranslator, ApiKeyMsTranslator },

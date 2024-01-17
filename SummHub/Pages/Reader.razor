@@ -21,7 +21,7 @@
         </td>
         <td>
             <div class="reader-body">
-                @if (Article.ImageUrl != null)
+                @if (!String.IsNullOrEmpty(Article.ImageUrl))
                 {
                     <img src="@Article.ImageUrl" alt="Article Image"/>
                 }

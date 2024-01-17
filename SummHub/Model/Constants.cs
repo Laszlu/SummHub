@@ -20,8 +20,10 @@ public class NewsApiConstants
 
 public class TranslatorConstants
 {
-    public const string UriMsTranslatorApi = 
-        "https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=en&api-version=3.0&profanityAction=NoAction&textType=plain";
+    public const string UriMsTranslatorApiPart1 = 
+        "https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=";
+    public const string UriMsTranslatorApiPart2 = 
+        "&api-version=3.0&profanityAction=NoAction&textType=plain";
     public const string ApiKeyMsTranslator = "af25d28a40msh05323456eb8d745p1f43fejsnc4353b6fc76b";
     public const string ApiKeyPropMsTranslator = "X-RapidAPI-Key";
     public const string ApiHostMsTranslator = "microsoft-translator-text.p.rapidapi.com";

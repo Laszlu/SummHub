@@ -139,6 +139,8 @@
     private List<NewsArticle> FilteredArticles { get; set; } = new();
 
     private SearchInputModel SearchInput { get; set; } = new();
+    
+    private string SelectedLanguage { get; set; }
 
     /*****************************************************************************************************************/
 
@@ -147,6 +149,7 @@
     {
         StartLoadingContent();
         base.OnInitialized();
+        SelectedLanguage = Manager.Languages.LanguageDictionary["English"].Item2;
     }
 
     private void ChangeSelectedCategoryView(Category category)
@@ -167,19 +170,19 @@
     private async void StartLoadingContent()
     {
         ChangeSelectedCategoryView(Category.TopStories);
-        await LoadPageContent(Category.TopStories);
+        await LoadPageContent(Category.TopStories, SelectedLanguage);
         ShowPageContent(Category.TopStories);
-        await LoadPageContent(Category.Sports);
-        await LoadPageContent(Category.Science);
-        await LoadPageContent(Category.Business);
-        await LoadPageContent(Category.Entertainment);
+        await LoadPageContent(Category.Sports, SelectedLanguage);
+        await LoadPageContent(Category.Science, SelectedLanguage);
+        await LoadPageContent(Category.Business, SelectedLanguage);
+        await LoadPageContent(Category.Entertainment, SelectedLanguage);
         _allContentIsLoaded = true;
         StateHasChanged();
     }
 
-    private async Task LoadPageContent(Category category)
+    private async Task LoadPageContent(Category category, string language)
     {
-        if (await Manager.LoadContent(NewsApi, category, Translator))
+        if (await Manager.LoadContent(NewsApi, category, Translator, language))
         {
             _categoryIsLoaded = true;
             StateHasChanged();
@@ -200,7 +203,7 @@
         //var result = await Manager.testfunc();
         //TestString = result;
 
-        if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator))
+        if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator, SelectedLanguage))
         {
             _categoryIsLoaded = true;
             Console.WriteLine(_categoryIsLoaded);

@@ -11,10 +11,14 @@ public class ControllerManager
     private readonly ArticlesService _articlesService;
     private readonly LanguageDetector _detector;
     
+    public Languages Languages { get; set; }
+
+    public string CurrentLanguage { get; set; } = "en";
+    
     /*****************************************************************************************************************/
     /// Main Pipeline for loading all Content
     public async Task<bool> LoadContent(IApiController apiController, Category category, 
-        IMsTranslatorApiController translator)
+        IMsTranslatorApiController translator, string language)
     {
         bool hasLoaded;
         
@@ -24,14 +28,14 @@ public class ControllerManager
         {
             foreach (var article in allArticles)
             {
-                var language = DetectLanguage(article);
+                var detectedLanguage = DetectLanguage(article);
                 
                 // Console.WriteLine(language);
                 // Console.WriteLine(article);
                 
-                if (language != "en")
+                if (detectedLanguage != language)
                 {
-                    var translatedArticle = await TranslateNews(article, translator);
+                    var translatedArticle = await TranslateNews(article, translator, language);
 
                     article.Title = translatedArticle.Title;
                     article.Description = translatedArticle.Description;
@@ -76,10 +80,10 @@ public class ControllerManager
         return _detector.Detect(article.Title);
     }
 
-    private async Task<NewsArticle> TranslateNews(NewsArticle article, IMsTranslatorApiController translator)
+    private async Task<NewsArticle> TranslateNews(NewsArticle article, IMsTranslatorApiController translator, string language)
     {
-        var translatedTitle = await translator.Translate(article.Title);
-        var translatedDescription = await translator.Translate(article.Description);
+        var translatedTitle = await translator.Translate(article.Title, language);
+        var translatedDescription = await translator.Translate(article.Description, language);
         
         if (translatedTitle != string.Empty && translatedDescription != string.Empty)
         {
@@ -106,9 +110,11 @@ public class ControllerManager
         MsTranslatorApiController translator, LanguageDetector detector)
     {
         _articlesService = articlesService;
+        
         _detector = detector;
-
         _detector.AddAllLanguages();
+        
+        Languages = new();
     }
 }
 
