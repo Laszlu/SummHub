@@ -10,43 +10,50 @@
     <EditForm Model="@Model" OnSubmit="@SubmitSettings">
         <h2>Language</h2>
 
-        <InputSelect @bind-Value="@Model.Language">
-            <option value="@Manager.Languages.LanguageDictionary["English"].Item2">
-                @Manager.Languages.LanguageDictionary["English"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Spanish"].Item2">
-                @Manager.Languages.LanguageDictionary["Spanish"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Simplified Chinese"].Item2">
-                @Manager.Languages.LanguageDictionary["Simplified Chinese"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Japanese"].Item2">
-                @Manager.Languages.LanguageDictionary["Japanese"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["French"].Item2">
-                @Manager.Languages.LanguageDictionary["French"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Arabic"].Item2">
-                @Manager.Languages.LanguageDictionary["Arabic"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["German"].Item2">
-                @Manager.Languages.LanguageDictionary["German"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Russian"].Item2">
-                @Manager.Languages.LanguageDictionary["Russian"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Hindi"].Item2">
-                @Manager.Languages.LanguageDictionary["Hindi"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Turkish"].Item2">
-                @Manager.Languages.LanguageDictionary["Turkish"].Item1
-            </option>
-            <option value="@Manager.Languages.LanguageDictionary["Klingon"].Item2">
-                @Manager.Languages.LanguageDictionary["Klingon"].Item1
-            </option>
-        </InputSelect>
-        
-        <button type="submit">Save</button>
+        <div class="settings-form-section">
+            <div>Select your preferred language for translation:</div>
+            <div>
+                <InputSelect @bind-Value="@Model.Language" class="settings-select">
+                    <option value="@Manager.Languages.LanguageDictionary["English"].Item2">
+                        @Manager.Languages.LanguageDictionary["English"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Spanish"].Item2">
+                        @Manager.Languages.LanguageDictionary["Spanish"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Simplified Chinese"].Item2">
+                        @Manager.Languages.LanguageDictionary["Simplified Chinese"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Japanese"].Item2">
+                        @Manager.Languages.LanguageDictionary["Japanese"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["French"].Item2">
+                        @Manager.Languages.LanguageDictionary["French"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Arabic"].Item2">
+                        @Manager.Languages.LanguageDictionary["Arabic"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["German"].Item2">
+                        @Manager.Languages.LanguageDictionary["German"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Russian"].Item2">
+                        @Manager.Languages.LanguageDictionary["Russian"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Hindi"].Item2">
+                        @Manager.Languages.LanguageDictionary["Hindi"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Turkish"].Item2">
+                        @Manager.Languages.LanguageDictionary["Turkish"].Item1
+                    </option>
+                    <option value="@Manager.Languages.LanguageDictionary["Klingon"].Item2">
+                        @Manager.Languages.LanguageDictionary["Klingon"].Item1
+                    </option>
+                </InputSelect>
+            </div>
+        </div>
+
+        <div class="settings-btn-container">
+            <button type="submit" class="settings-save-btn">Save</button>
+        </div>
     </EditForm>
 </div>
 

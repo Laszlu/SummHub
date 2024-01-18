@@ -8,6 +8,7 @@
     padding: 0 !important;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    border: 1px solid rgba(0,0,0,0.2);
 }
 
 .reader-body::-webkit-scrollbar{
@@ -92,4 +93,5 @@
 
 .reader-table{
     width: 100vw !important;
+    margin-top: 5%;
 }

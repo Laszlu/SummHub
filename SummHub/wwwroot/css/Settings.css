@@ -2,6 +2,54 @@
     margin: 7% 20% 7% 20%;
 }
 
-h1 {
-    margin-bottom: 20px;
+.settings-container h1, h2{
+    margin-bottom: 20px !important;
+}
+
+.settings-container form {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20px;
+}
+
+.settings-form-section {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    margin-left: 5.5%;
+}
+
+.settings-form-section div:first-child {
+    width: 50%;
+    font-size: 18px;
+}
+
+.settings-form-section div:nth-child(2) {
+    width: 50%;
+    justify-content: end;
+    display: flex;
+}
+
+.settings-select {
+    width: 50%;
+    font-size: 18px;
+}
+
+.settings-btn-container {
+    justify-content: center;
+    display: flex;
+    height: 150px;
+    align-items: center;
+}
+
+.settings-save-btn {
+    height: 50px;
+    width: 100px;
+    font-size: 25px;
+    border: 1px solid rebeccapurple;
+    border-radius: 10px;
+}
+
+.settings-save-btn:hover {
+    background-color: rebeccapurple;
 }

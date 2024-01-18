@@ -4,15 +4,15 @@
     
 }
 
-h1 {
+.about-container h1 {
     margin-bottom: 20px;
 }
 
-h2, h3 {
+.about-container h2, h3 {
     margin: 0 5% 20px 5%;
 }
 
-p {
+.about-container p {
     font-size: larger;
     text-align: justify;
     margin-bottom: 20px;

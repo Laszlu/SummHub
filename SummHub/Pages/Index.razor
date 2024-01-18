@@ -25,39 +25,39 @@
             }
             else
             {
-                <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                        @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.TopStories; 
+                <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button")
+                        @onclick="() => { Manager.CurrentCategory = Category.TopStories; 
                         ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
-                Top Stories
-            </button>
-            <button class=@(_selectedCategoryView[Category.Sports] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Sports; 
-                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
-                Sports
-            </button>
+                    Top Stories
+                </button>
+                <button class=@(_selectedCategoryView[Category.Sports] ? "category-button-selected" : "category-button")
+                        @onclick="() => { Manager.CurrentCategory = Category.Sports; 
+                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                    Sports
+                </button>
 
-            @* Currently no data for this category, can be implemented later *@
-            @*<button class=@(_selectedCategoryView[Category.Politics] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                      @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Politics;
-                      ChangeSelectedCategoryView(Manager.CurrentCategory); LoadPageContent(Manager.CurrentCategory); }">
-                Politics
-            </button>*@
+                @* Currently no data for this category, can be implemented later *@
+                @*<button class=@(_selectedCategoryView[Category.Politics] ? "category-button-selected" : "category-button")
+                        @onclick="() => { Manager.CurrentCategory = Category.Politics;
+                        ChangeSelectedCategoryView(Manager.CurrentCategory); LoadPageContent(Manager.CurrentCategory); }">
+                    Politics
+                </button>*@
 
-            <button class=@(_selectedCategoryView[Category.Science] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Science; 
-                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
-                Science
-            </button>
-            <button class=@(_selectedCategoryView[Category.Business] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Business; 
-                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
-                Business
-            </button>
-            <button class=@(_selectedCategoryView[Category.Entertainment] ? "category-button-selected" : "category-button") style="@(_allContentIsLoaded ? "visibility: visible" : "visibility: hidden")"
-                    @onclick="() => { _categoryIsLoaded = false; Manager.CurrentCategory = Category.Entertainment; 
-                    ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
-                Entertainment
-            </button>
+                <button class=@(_selectedCategoryView[Category.Science] ? "category-button-selected" : "category-button")
+                        @onclick="() => { Manager.CurrentCategory = Category.Science; 
+                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                    Science
+                </button>
+                <button class=@(_selectedCategoryView[Category.Business] ? "category-button-selected" : "category-button")
+                        @onclick="() => { Manager.CurrentCategory = Category.Business; 
+                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                    Business
+                </button>
+                <button class=@(_selectedCategoryView[Category.Entertainment] ? "category-button-selected" : "category-button")
+                        @onclick="() => { Manager.CurrentCategory = Category.Entertainment; 
+                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                    Entertainment
+                </button>
             }
         </div>
     </div>
@@ -71,7 +71,7 @@
     </div>
 
     <div>
-        @if (_categoryIsLoaded)
+        @if (_allContentIsLoaded)
         {
             <div class="tiles-container" style=@(_readerIsOpen ? "visibility: hidden" : "visibility: visible")>
                 @foreach (var article in FilteredArticles)
@@ -123,7 +123,7 @@
 
 
 @code {
-    private bool _categoryIsLoaded;
+    //private bool _categoryIsLoaded;
     private bool _allContentIsLoaded;
     private bool _readerIsOpen;
 
@@ -174,8 +174,9 @@
     {
         ChangeSelectedCategoryView(Manager.CurrentCategory);
         
-        if (ArticleService.GetArticleList(Manager.CurrentCategory)[0] == null || Manager.CurrentLanguage != Manager.PreviousLanguage)
+        if (ArticleService.GetArticleList(Manager.CurrentCategory).Count <= 0 || Manager.CurrentLanguage != Manager.PreviousLanguage)
         {
+            Console.WriteLine("Loading from API");
             await LoadPageContent(Category.TopStories, Manager.CurrentLanguage);
             await LoadPageContent(Category.Sports, Manager.CurrentLanguage);
             await LoadPageContent(Category.Science, Manager.CurrentLanguage);
@@ -185,6 +186,7 @@
         }
         else
         {
+            Console.WriteLine("Already loaded and showing");
             ShowPageContent(Manager.CurrentCategory);
         }
         
@@ -196,14 +198,12 @@
     {
         if (await Manager.LoadContent(NewsApi, category, Translator, language))
         {
-            _categoryIsLoaded = true;
             StateHasChanged();
         }
     }
 
     private void ShowPageContent(Category category)
     {
-        _categoryIsLoaded = true;
         Console.WriteLine($"now showing {category}");
         CurrentArticles = ArticleService.GetArticleList(category)!;
         FilteredArticles = CurrentArticles;
@@ -217,8 +217,6 @@
 
         if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator, Manager.CurrentLanguage))
         {
-            _categoryIsLoaded = true;
-            Console.WriteLine(_categoryIsLoaded);
             Console.WriteLine(CurrentArticles);
         }
 
