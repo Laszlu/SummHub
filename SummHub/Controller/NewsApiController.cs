@@ -11,6 +11,7 @@ namespace SummHub.Controller;
 public class NewsApiController : IApiController
 {
     private readonly HttpClient _client;
+    private readonly IConfiguration _configuration;
 
     public async Task<List<NewsArticle>> GetData(Category category)
     {
@@ -50,11 +51,14 @@ public class NewsApiController : IApiController
 
     public string? BuildQuery(Category category)
     {
+        var connectionStrings = _configuration.GetSection("ConnectionStrings");
+        var key = connectionStrings["GoogleNews"];
+        
         var categoryString = GetCategory(category);
 
         if (categoryString != null)
         {
-            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?{categoryString}&{ApiKeyNewsApi}";
+            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?{categoryString}&{ApiKeyNewsApi}{key}";
             return queryString;
         }
         
@@ -84,9 +88,10 @@ public class NewsApiController : IApiController
         return result;
     }*/
 
-    public NewsApiController(HttpClient injectedClient)
+    public NewsApiController(HttpClient injectedClient, IConfiguration injectedConfiguration)
     {
         _client = injectedClient;
+        _configuration = injectedConfiguration;
     }
 }
 

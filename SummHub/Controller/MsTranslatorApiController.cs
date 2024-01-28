@@ -12,6 +12,7 @@ namespace SummHub.Controller;
 public class MsTranslatorApiController : IMsTranslatorApiController
 {
     private readonly HttpClient _client;
+    private readonly IConfiguration _configuration;
 
     public async Task<string?> Translate(string? textToTranslate, string language)
     {
@@ -20,13 +21,16 @@ public class MsTranslatorApiController : IMsTranslatorApiController
             textToTranslate = textToTranslate.Replace(@"""", "*");
             //Console.WriteLine(textToTranslate);
         
+            var connectionStrings = _configuration.GetSection("ConnectionStrings");
+            var key = connectionStrings["MSTranslator"];
+            
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
                 RequestUri = new Uri($"{UriMsTranslatorApiPart1}{language}{UriMsTranslatorApiPart2}"),
                 Headers =
                 {
-                    { ApiKeyPropMsTranslator, ApiKeyMsTranslator },
+                    { ApiKeyPropMsTranslator, key },
                     { ApiHostPropMsTranslator, ApiHostMsTranslator },
                 },
                 Content = new StringContent($"[{{\"Text\":\"{textToTranslate}\"}}]")
@@ -59,8 +63,9 @@ public class MsTranslatorApiController : IMsTranslatorApiController
         //TODO: Implement custom errors 
     }
 
-    public MsTranslatorApiController(HttpClient injectedClient)
+    public MsTranslatorApiController(HttpClient injectedClient, IConfiguration injectedConfiguration)
     {
         _client = injectedClient;
+        _configuration = injectedConfiguration;
     }
 }
