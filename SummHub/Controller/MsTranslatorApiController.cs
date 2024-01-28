@@ -56,6 +56,8 @@ public class MsTranslatorApiController : IMsTranslatorApiController
             {
                 _errorController.Exception = e;
             }
+
+            _errorController.Exception = new Exception("Translation failed");
             return string.Empty;
         }
         

@@ -7,7 +7,7 @@
     </div>
     <div class="error-text">
         <label>
-             Testkjdfajk ldhs fga kjls dhfgas kjdfgask jdhfgak sdjfgsdakjdfhaklsjdfh @* @ErrorController.Exception.Message *@
+             @(ErrorController.Exception != null ? ErrorController.Exception.Message : "")
         </label>
     </div>
 </div>

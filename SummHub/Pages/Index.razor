@@ -120,7 +120,7 @@
             </MudOverlay>
         }
         
-        @if (true)
+        @if (_errorIsOpen)
         {
             <ErrorPopup CloseErrorPopup="@(() => { _errorIsOpen = false; StateHasChanged(); })"/>
         }
@@ -132,7 +132,7 @@
     //private bool _categoryIsLoaded;
     private bool _allContentIsLoaded;
     private bool _readerIsOpen;
-    private bool _errorIsOpen;
+    private bool _errorIsOpen = false;
 
     //disabled="@(_allContentIsLoaded ? "false" : "true")"
 
@@ -153,14 +153,23 @@
 
     private SearchInputModel SearchInput { get; set; } = new();
 
+    
+
     /*****************************************************************************************************************/
 
     protected override void OnInitialized()
     {
         Console.WriteLine($"Initialized Index page with Language {Manager.CurrentLanguage}");
         StartLoadingContent();
+        //ErrorController.ErrorReceived += OnErrorReceived;
+        // TODO: Find better implementation, this tanks performance
         base.OnInitialized();
+    }
+    
+    private void OnErrorReceived(object? sender, EventArgs e)
+    {
         _errorIsOpen = true;
+        StateHasChanged();
     }
 
     private void ChangeSelectedCategoryView(Category category)

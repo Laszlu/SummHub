@@ -44,11 +44,9 @@ public class ControllerManager
                     article.Title = translatedArticle.Title;
                     article.Description = translatedArticle.Description;
                 }
-                
-                //Thread.Sleep(200);
             }
             //-----------------//
-            Console.WriteLine(allArticles.First().ImageUrl); 
+            //Console.WriteLine(allArticles.First().ImageUrl); 
             //-----------------//
             _articlesService.SaveArticles(allArticles, category);
             hasLoaded = true;
@@ -73,6 +71,7 @@ public class ControllerManager
         }
         catch (Exception ex)
         {
+            _errorController.Exception = ex;
             Console.WriteLine(ex.Message);
         }
 
@@ -95,7 +94,7 @@ public class ControllerManager
             article.Description = translatedDescription;
             return article;
         }
-
+        
         return article;
     }
 
