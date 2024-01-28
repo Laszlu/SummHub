@@ -10,6 +10,7 @@ public class ControllerManager
 {
     private readonly ArticlesService _articlesService;
     private readonly LanguageDetector _detector;
+    private readonly ErrorController _errorController;
     
     public Languages Languages { get; set; }
 
@@ -95,9 +96,6 @@ public class ControllerManager
             return article;
         }
 
-        //article.Title = string.Empty;
-        //article.Description = string.Empty;
-        //Console.WriteLine("Translation failed"); //TODO: move to constants
         return article;
     }
 
@@ -109,11 +107,10 @@ public class ControllerManager
         return result;
     }*/
 
-    public ControllerManager(ArticlesService articlesService, NewsApiController newsApi,
-        MsTranslatorApiController translator, LanguageDetector detector)
+    public ControllerManager(ArticlesService articlesService, LanguageDetector detector, ErrorController errorController)
     {
         _articlesService = articlesService;
-        
+        _errorController = errorController;
         _detector = detector;
         _detector.AddAllLanguages();
         

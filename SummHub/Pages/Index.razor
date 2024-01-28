@@ -6,6 +6,7 @@
 @inject ArticlesService ArticleService
 @inject MsTranslatorApiController Translator
 @inject SearchService SearchService
+@inject ErrorController ErrorController
 
 <PageTitle>Index</PageTitle>
 
@@ -118,6 +119,11 @@
                 <Reader Article="SelectedArticle" CloseReader="@(() => { _readerIsOpen = false; StateHasChanged(); })"/>
             </MudOverlay>
         }
+        
+        @if (true)
+        {
+            <ErrorPopup CloseErrorPopup="@(() => { _errorIsOpen = false; StateHasChanged(); })"/>
+        }
     </div>
 </div>
 
@@ -126,6 +132,7 @@
     //private bool _categoryIsLoaded;
     private bool _allContentIsLoaded;
     private bool _readerIsOpen;
+    private bool _errorIsOpen;
 
     //disabled="@(_allContentIsLoaded ? "false" : "true")"
 
@@ -153,6 +160,7 @@
         Console.WriteLine($"Initialized Index page with Language {Manager.CurrentLanguage}");
         StartLoadingContent();
         base.OnInitialized();
+        _errorIsOpen = true;
     }
 
     private void ChangeSelectedCategoryView(Category category)

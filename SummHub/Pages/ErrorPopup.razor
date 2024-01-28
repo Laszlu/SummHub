@@ -1,0 +1,32 @@
+@using SummHub.Controller
+@inject ErrorController ErrorController
+
+<div class="error-popup-body">
+    <div class="error-icon">
+        <img src="images/warning.png" alt="warning icon"/>
+    </div>
+    <div class="error-text">
+        <label>
+             Testkjdfajk ldhs fga kjls dhfgas kjdfgask jdhfgak sdjfgsdakjdfhaklsjdfh @* @ErrorController.Exception.Message *@
+        </label>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public EventCallback CloseErrorPopup { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        ClosePopup();
+        base.OnInitialized();
+    }
+
+    private async void ClosePopup()
+    {
+        Thread.Sleep(10000);
+        CloseErrorPopup.InvokeAsync();
+    }
+
+}

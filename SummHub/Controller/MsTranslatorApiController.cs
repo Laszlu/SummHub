@@ -13,6 +13,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
 {
     private readonly HttpClient _client;
     private readonly IConfiguration _configuration;
+    private readonly ErrorController _errorController;
 
     public async Task<string?> Translate(string? textToTranslate, string language)
     {
@@ -53,7 +54,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
             }
             catch (HttpRequestException e)
             {
-                //Console.WriteLine(e.Message);
+                _errorController.Exception = e;
             }
             return string.Empty;
         }
@@ -63,9 +64,10 @@ public class MsTranslatorApiController : IMsTranslatorApiController
         //TODO: Implement custom errors 
     }
 
-    public MsTranslatorApiController(HttpClient injectedClient, IConfiguration injectedConfiguration)
+    public MsTranslatorApiController(HttpClient injectedClient, IConfiguration injectedConfiguration, ErrorController errorController)
     {
         _client = injectedClient;
         _configuration = injectedConfiguration;
+        _errorController = errorController;
     }
 }

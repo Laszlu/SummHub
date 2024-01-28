@@ -12,6 +12,7 @@ public class NewsApiController : IApiController
 {
     private readonly HttpClient _client;
     private readonly IConfiguration _configuration;
+    private readonly ErrorController _errorController;
 
     public async Task<List<NewsArticle>> GetData(Category category)
     {
@@ -88,10 +89,11 @@ public class NewsApiController : IApiController
         return result;
     }*/
 
-    public NewsApiController(HttpClient injectedClient, IConfiguration injectedConfiguration)
+    public NewsApiController(HttpClient injectedClient, IConfiguration injectedConfiguration, ErrorController errorController)
     {
         _client = injectedClient;
         _configuration = injectedConfiguration;
+        _errorController = errorController;
     }
 }
 
