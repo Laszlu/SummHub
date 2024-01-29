@@ -4,6 +4,7 @@
 
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using SummHub.Model;
 using SummHub.Model.ApiData;
 using static SummHub.Model.TranslatorConstants;
 
@@ -54,16 +55,15 @@ public class MsTranslatorApiController : IMsTranslatorApiController
             }
             catch (HttpRequestException e)
             {
-                _errorController.Exception = e;
+                _errorController.Exception = new CustomException(e, CustomExceptionType.Warning);
             }
 
-            _errorController.Exception = new Exception("Translation failed");
+            _errorController.Exception = new CustomException("Translation failed", CustomExceptionType.UserAlert);
             return string.Empty;
         }
         
+        _errorController.Exception = new CustomException("No text to translate", CustomExceptionType.DevError);
         return string.Empty;
-        
-        //TODO: Implement custom errors 
     }
 
     public MsTranslatorApiController(HttpClient injectedClient, IConfiguration injectedConfiguration, ErrorController errorController)

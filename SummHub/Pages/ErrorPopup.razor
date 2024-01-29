@@ -7,7 +7,7 @@
     </div>
     <div class="error-text">
         <label>
-             @(ErrorController.Exception != null ? ErrorController.Exception.Message : "")
+             @(ErrorController.Exception != null ? ErrorController.Exception.InnerException.Message : "")
         </label>
     </div>
 </div>
@@ -16,6 +16,8 @@
 @code {
     [Parameter]
     public EventCallback CloseErrorPopup { get; set; }
+    [Parameter]
+    public EventCallback ForceUpdateUi { get; set; }
     
     protected override void OnInitialized()
     {
@@ -25,8 +27,12 @@
 
     private async void ClosePopup()
     {
-        Thread.Sleep(10000);
-        CloseErrorPopup.InvokeAsync();
+        await Task.Run(async delegate
+        {
+            await Task.Delay(TimeSpan.FromSeconds(10));
+            await CloseErrorPopup.InvokeAsync();
+            ForceUpdateUi.InvokeAsync();
+        });
     }
 
 }

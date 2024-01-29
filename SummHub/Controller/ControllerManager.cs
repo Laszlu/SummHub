@@ -71,7 +71,7 @@ public class ControllerManager
         }
         catch (Exception ex)
         {
-            _errorController.Exception = ex;
+            _errorController.Exception = new CustomException(ex, CustomExceptionType.DevError);
             Console.WriteLine(ex.Message);
         }
 
@@ -95,6 +95,7 @@ public class ControllerManager
             return article;
         }
         
+        _errorController.Exception = new CustomException("Translation failed", CustomExceptionType.UserAlert);
         return article;
     }
 

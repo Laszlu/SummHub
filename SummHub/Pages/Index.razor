@@ -122,7 +122,7 @@
         
         @if (_errorIsOpen)
         {
-            <ErrorPopup CloseErrorPopup="@(() => { _errorIsOpen = false; StateHasChanged(); })"/>
+            <ErrorPopup CloseErrorPopup="@(() => { _errorIsOpen = false; })" ForceUpdateUi="@(() => { StateHasChanged(); })"/>
         }
     </div>
 </div>
@@ -161,7 +161,7 @@
     {
         Console.WriteLine($"Initialized Index page with Language {Manager.CurrentLanguage}");
         StartLoadingContent();
-        //ErrorController.ErrorReceived += OnErrorReceived;
+        ErrorController.ErrorReceived += OnErrorReceived;
         // TODO: Find better implementation, this tanks performance
         base.OnInitialized();
     }
@@ -169,6 +169,7 @@
     private void OnErrorReceived(object? sender, EventArgs e)
     {
         _errorIsOpen = true;
+        Console.WriteLine("error received");
         StateHasChanged();
     }
 

@@ -37,6 +37,10 @@ public class NewsApiController : IApiController
                 });
             }
         }
+        else
+        {
+            _errorController.Exception = new CustomException("API responded with error", CustomExceptionType.Warning);
+        }
 
         return articles;
     }
@@ -59,10 +63,11 @@ public class NewsApiController : IApiController
 
         if (categoryString != null)
         {
-            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?{categoryString}&{ApiKeyNewsApi}{key}";
+            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?pageSize=5&{categoryString}&{ApiKeyNewsApi}{key}";
             return queryString;
         }
         
+        _errorController.Exception = new CustomException("Category not found", CustomExceptionType.DevError);
         return null;
     }
     
