@@ -63,6 +63,7 @@ public class NewsApiController : IApiController
 
         if (categoryString != null)
         {
+            // TODO: change back to default number of results
             var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?pageSize=5&{categoryString}&{ApiKeyNewsApi}{key}";
             return queryString;
         }
