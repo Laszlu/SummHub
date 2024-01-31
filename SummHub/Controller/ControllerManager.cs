@@ -34,9 +34,6 @@ public class ControllerManager
             {
                 var detectedLanguage = DetectLanguage(article);
                 
-                // Console.WriteLine(language);
-                // Console.WriteLine(article);
-                
                 if (detectedLanguage != language)
                 {
                     var translatedArticle = await TranslateNews(article, translator, language);
@@ -45,15 +42,12 @@ public class ControllerManager
                     article.Description = translatedArticle.Description;
                 }
             }
-            //-----------------//
-            //Console.WriteLine(allArticles.First().ImageUrl); 
-            //-----------------//
             _articlesService.SaveArticles(allArticles, category);
             hasLoaded = true;
         }
         else
         {
-            // TODO: Error Response for UI
+            _errorController.Exception = new CustomException("API returned no articles", CustomExceptionType.UserAlert);
             hasLoaded = false;
         }
 
@@ -72,7 +66,6 @@ public class ControllerManager
         catch (Exception ex)
         {
             _errorController.Exception = new CustomException(ex, CustomExceptionType.DevError);
-            Console.WriteLine(ex.Message);
         }
 
         return articles;
@@ -88,24 +81,18 @@ public class ControllerManager
         var translatedTitle = await translator.Translate(article.Title, language);
         var translatedDescription = await translator.Translate(article.Description, language);
         
-        if (translatedTitle != string.Empty && translatedDescription != string.Empty)
+        if (translatedTitle != string.Empty)
         {
             article.Title = translatedTitle;
             article.Description = translatedDescription;
             return article;
         }
-        
-        _errorController.Exception = new CustomException("Translation failed", CustomExceptionType.UserAlert);
-        return article;
+        else
+        {
+            _errorController.Exception = new CustomException("Translation failed", CustomExceptionType.UserAlert);
+            return article;
+        }
     }
-
-    // Function for testing api call
-    /*public async Task<string> testfunc()
-    {
-        Console.WriteLine("manager works");
-        var result = await NewsApi.testfunc();
-        return result;
-    }*/
 
     public ControllerManager(ArticlesService articlesService, LanguageDetector detector, ErrorController errorController)
     {

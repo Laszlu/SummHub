@@ -21,7 +21,6 @@ public class TranslatorApiController : ITranslatorApiController
         if (!string.IsNullOrEmpty(textToTranslate))
         {
             textToTranslate = textToTranslate.Replace(@"""", "*");
-            //Console.WriteLine(textToTranslate);
         
             var connectionStrings = _configuration.GetSection("ConnectionStrings");
             var key = connectionStrings["MSTranslator"];

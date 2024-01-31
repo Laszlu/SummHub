@@ -84,16 +84,6 @@ public class NewsApiController : IApiController
             _ => null
         };
     }
-    
-    // Function for testing api call
-    /*public async Task<string> testfunc()
-    {
-        Console.WriteLine("apicontroller works");
-
-        var result = await CallApi(Category.TopStories);
-
-        return result;
-    }*/
 
     public NewsApiController(HttpClient injectedClient, IConfiguration injectedConfiguration, ErrorController errorController)
     {
