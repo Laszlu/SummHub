@@ -22,7 +22,7 @@ public class ControllerManager
     /*****************************************************************************************************************/
     /// Main Pipeline for loading all Content
     public async Task<bool> LoadContent(IApiController apiController, Category category, 
-        IMsTranslatorApiController translator, string language)
+        ITranslatorApiController translator, string language)
     {
         bool hasLoaded;
         
@@ -83,7 +83,7 @@ public class ControllerManager
         return _detector.Detect(article.Title);
     }
 
-    private async Task<NewsArticle> TranslateNews(NewsArticle article, IMsTranslatorApiController translator, string language)
+    private async Task<NewsArticle> TranslateNews(NewsArticle article, ITranslatorApiController translator, string language)
     {
         var translatedTitle = await translator.Translate(article.Title, language);
         var translatedDescription = await translator.Translate(article.Description, language);

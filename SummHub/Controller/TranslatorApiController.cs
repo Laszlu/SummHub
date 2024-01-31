@@ -10,7 +10,7 @@ using static SummHub.Model.TranslatorConstants;
 
 namespace SummHub.Controller;
 
-public class MsTranslatorApiController : IMsTranslatorApiController
+public class TranslatorApiController : ITranslatorApiController
 {
     private readonly HttpClient _client;
     private readonly IConfiguration _configuration;
@@ -66,7 +66,7 @@ public class MsTranslatorApiController : IMsTranslatorApiController
         return string.Empty;
     }
 
-    public MsTranslatorApiController(HttpClient injectedClient, IConfiguration injectedConfiguration, ErrorController errorController)
+    public TranslatorApiController(HttpClient injectedClient, IConfiguration injectedConfiguration, ErrorController errorController)
     {
         _client = injectedClient;
         _configuration = injectedConfiguration;

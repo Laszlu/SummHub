@@ -15,7 +15,7 @@ builder.Services.AddSingleton<LanguageDetector>();
 builder.Services.AddSingleton<ArticlesService>();
 builder.Services.AddSingleton<ErrorController>();
 builder.Services.AddSingleton<NewsApiController>();
-builder.Services.AddSingleton<MsTranslatorApiController>();
+builder.Services.AddSingleton<TranslatorApiController>();
 builder.Services.AddSingleton<ControllerManager>();
 builder.Services.AddSingleton<SearchService>();
 
