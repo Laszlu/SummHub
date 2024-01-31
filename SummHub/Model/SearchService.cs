@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using static SummHub.Model.SearchServiceConstants;
 
 namespace SummHub.Model;
 
 public class SearchInputModel
 {
     [MaxLength(20)]
-    [RegularExpression(@"[\w\-\s]{0,20}$",
-        ErrorMessage = "Search contains invalid symbols")] //TODO: move to constants
+    [RegularExpression(@"[\w\-\s]{0,20}$", ErrorMessage = InvalidSearch)]
     public string Query { get; set; }
 }
 

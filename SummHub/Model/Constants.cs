@@ -31,3 +31,10 @@ public class TranslatorConstants
 }
 
 /**********************************************************************************************************************/
+
+public class SearchServiceConstants
+{
+    public const string InvalidSearch = "Search contains invalid symbols";
+}
+
+/**********************************************************************************************************************/
