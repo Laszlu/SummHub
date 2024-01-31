@@ -130,12 +130,9 @@
 
 
 @code {
-    //private bool _categoryIsLoaded;
     private bool _allContentIsLoaded;
     private bool _readerIsOpen;
     private bool _errorIsOpen = false;
-
-    //disabled="@(_allContentIsLoaded ? "false" : "true")"
 
     private Dictionary<Category, bool> _selectedCategoryView = new Dictionary<Category, bool>()
     {
@@ -163,7 +160,6 @@
         Console.WriteLine($"Initialized Index page with Language {Manager.CurrentLanguage}");
         StartLoadingContent();
         ErrorController.ErrorReceived += OnErrorReceived;
-        // TODO: Find better implementation, this tanks performance
         base.OnInitialized();
     }
     
@@ -228,19 +224,4 @@
         FilteredArticles = CurrentArticles;
         StateHasChanged();
     }
-
-    // Test from development    
-    /*private async void Test()
-    {
-        //var result = await Manager.testfunc();
-        //TestString = result;
-
-        if (await Manager.LoadContent(NewsApi, Category.TopStories, Translator, Manager.CurrentLanguage))
-        {
-            Console.WriteLine(CurrentArticles);
-        }
-
-        StateHasChanged();
-    }*/
-
 }
