@@ -1,5 +1,6 @@
 @page "/settings"
 @using SummHub.Controller
+@using SummHub.Model
 @inject ControllerManager Manager
 
 <PageTitle>Settings</PageTitle>
@@ -59,11 +60,6 @@
 
 
 @code {
-
-    public class SettingsModel
-    {
-        public string Language { get; set; }
-    }
 
     public SettingsModel Model { get; set; }
 
