@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SummHub", "SummHub\SummHub.csproj", "{7B4ABBB7-A641-4969-B493-3D34A0CA251B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N3W5_UnitTests", "N3W5_UnitTests\N3W5_UnitTests.csproj", "{D0B2FA36-0438-4EC0-841C-58286378ADDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{7B4ABBB7-A641-4969-B493-3D34A0CA251B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4ABBB7-A641-4969-B493-3D34A0CA251B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4ABBB7-A641-4969-B493-3D34A0CA251B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B2FA36-0438-4EC0-841C-58286378ADDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B2FA36-0438-4EC0-841C-58286378ADDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B2FA36-0438-4EC0-841C-58286378ADDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B2FA36-0438-4EC0-841C-58286378ADDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

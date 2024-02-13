@@ -71,7 +71,7 @@ public class ControllerManager
         return articles;
     }
 
-    private string DetectLanguage(NewsArticle article)
+    public string DetectLanguage(NewsArticle article)
     {
         return _detector.Detect(article.Title);
     }
