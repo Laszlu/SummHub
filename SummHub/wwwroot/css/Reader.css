@@ -9,6 +9,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px 2px black;
 }
 
 .reader-body::-webkit-scrollbar{

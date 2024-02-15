@@ -1,5 +1,5 @@
 .settings-container{
-    margin: 7% 20% 7% 20%;
+    margin: max(100px, 7%) 20% 7% 20%;
 }
 
 .settings-container h1, h2{
@@ -15,8 +15,9 @@
 .settings-form-section {
     display: flex;
     height: 40px;
-    align-items: center;
+    align-items: self-start;
     margin-left: 5.5%;
+    margin-bottom: 100px;
 }
 
 .settings-form-section div:first-child {
