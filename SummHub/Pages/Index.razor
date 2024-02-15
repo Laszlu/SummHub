@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@*********************************************************************************************************************@
+@* von Laszlo und David *@
+
+@page "/"
 @using Controller
 @using Model
 @inject ControllerManager Manager
@@ -13,6 +16,7 @@
 
 
 <div>
+    @* Category navigation Bar *@
     <div style="height: 50px">
         <div class="category-container">
             @if (!_allContentIsLoaded)
@@ -20,20 +24,18 @@
                 @for (int i = 0; i < 5; i++)
                 {
                     <div class="category-button-skeleton">
-                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Height="100%" Width="100%" />
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Height="100%" Width="100%"/>
                     </div>
                 }
             }
             else
             {
                 <button class=@(_selectedCategoryView[Category.TopStories] ? "category-button-selected" : "category-button")
-                        @onclick="() => { Manager.CurrentCategory = Category.TopStories; 
-                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                                                @onclick="() => { Manager.CurrentCategory = Category.TopStories; ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                     Top Stories
                 </button>
                 <button class=@(_selectedCategoryView[Category.Sports] ? "category-button-selected" : "category-button")
-                        @onclick="() => { Manager.CurrentCategory = Category.Sports; 
-                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                                                @onclick="() => { Manager.CurrentCategory = Category.Sports; ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                     Sports
                 </button>
 
@@ -45,24 +47,22 @@
                 </button>*@
 
                 <button class=@(_selectedCategoryView[Category.Science] ? "category-button-selected" : "category-button")
-                        @onclick="() => { Manager.CurrentCategory = Category.Science; 
-                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                                                @onclick="() => { Manager.CurrentCategory = Category.Science; ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                     Science
                 </button>
                 <button class=@(_selectedCategoryView[Category.Business] ? "category-button-selected" : "category-button")
-                        @onclick="() => { Manager.CurrentCategory = Category.Business; 
-                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                                                @onclick="() => { Manager.CurrentCategory = Category.Business; ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                     Business
                 </button>
                 <button class=@(_selectedCategoryView[Category.Entertainment] ? "category-button-selected" : "category-button")
-                        @onclick="() => { Manager.CurrentCategory = Category.Entertainment; 
-                        ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
+                                                @onclick="() => { Manager.CurrentCategory = Category.Entertainment; ChangeSelectedCategoryView(Manager.CurrentCategory); ShowPageContent(Manager.CurrentCategory); }">
                     Entertainment
                 </button>
             }
         </div>
     </div>
-    
+
+    @* Search Bar *@
     <div class="search-bar">
         <EditForm Model="@SearchInput" OnValidSubmit="() => { FilteredArticles = SearchService.FilterArticles(CurrentArticles, SearchInput.Query); }" class="search-bar-form">
             <DataAnnotationsValidator/>
@@ -71,6 +71,7 @@
         </EditForm>
     </div>
 
+    @* Tiles with News *@
     <div>
         @if (_allContentIsLoaded)
         {
@@ -86,7 +87,9 @@
                             }
                             else
                             {
-                                <img class="tile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Google_News_icon.svg/293px-Google_News_icon.svg.png" alt="Placeholder"/>
+                                <img class="tile-img"
+                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Google_News_icon.svg/293px-Google_News_icon.svg.png"
+                                     alt="Placeholder"/>
                             }
                         </div>
                         @if (article.Title.Length > 70)
@@ -103,6 +106,7 @@
         }
         else
         {
+            @* Loading Animation *@
             <LoadingPopup/>
             <div class="tiles-container">
                 @for (int i = 0; i < 20; i++)
@@ -120,7 +124,7 @@
                 <Reader Article="SelectedArticle" CloseReader="@(() => { _readerIsOpen = false; StateHasChanged(); })"/>
             </MudOverlay>
         }
-        
+
         @if (_errorIsOpen)
         {
             <ErrorPopup CloseErrorPopup="@(() => { _errorIsOpen = false; })" ForceUpdateUi="@(() => { StateHasChanged(); })"/>
@@ -225,3 +229,4 @@
         StateHasChanged();
     }
 }
+@*********************************************************************************************************************@

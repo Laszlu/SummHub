@@ -63,8 +63,8 @@ public class NewsApiController : IApiController
 
         if (categoryString != null)
         {
-            // Currently limited to 5 results per category to save API requests
-            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?pageSize=5&{categoryString}&{ApiKeyNewsApi}{key}";
+            // Currently limited to 5 results per category to save API requests, remove '{PageLimit}&' to return to default of 20 results
+            var queryString = $"{BaseUrlNewsApi}{TopStoriesNewsApi}?{PageLimit}&{categoryString}&{ApiKeyNewsApi}{key}";
             return queryString;
         }
         

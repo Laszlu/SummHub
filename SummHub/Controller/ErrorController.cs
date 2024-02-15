@@ -1,3 +1,6 @@
+/*********************************************************************************************************************/
+// von Laszlo
+
 using SummHub.Model;
 
 namespace SummHub.Controller;
@@ -8,6 +11,7 @@ public class ErrorController
 
     private CustomException? _exception;
     
+    // Raise event on setting Exception to display in UI
     public CustomException? Exception
     {
         get { return _exception; }
@@ -31,3 +35,4 @@ public class ErrorController
         }
     }
 }
+/*********************************************************************************************************************/

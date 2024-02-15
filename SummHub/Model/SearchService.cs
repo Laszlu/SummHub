@@ -1,3 +1,6 @@
+/*********************************************************************************************************************/
+// von Laszlo & David
+
 using System.ComponentModel.DataAnnotations;
 using static SummHub.Model.SearchServiceConstants;
 
@@ -21,3 +24,4 @@ public class SearchService
         return articles;
     }
 }
+/*********************************************************************************************************************/

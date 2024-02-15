@@ -1,3 +1,4 @@
+/*********************************************************************************************************************/
 // von: https://github.com/News-API-gh/News-API-csharp/tree/master
 
 namespace SummHub.Model.ApiData;
@@ -52,3 +53,4 @@ public class NewsApiResponse
     public List<NewsApiArticle> Articles { get; set; }
     public int TotalResults { get; set; }
 }
+/*********************************************************************************************************************/

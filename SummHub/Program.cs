@@ -1,3 +1,6 @@
+/*********************************************************************************************************************/
+// von Laszlo und David
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using LanguageDetection;
@@ -22,3 +25,5 @@ builder.Services.AddSingleton<SearchService>();
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
+
+/*********************************************************************************************************************/

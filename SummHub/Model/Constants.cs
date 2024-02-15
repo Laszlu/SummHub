@@ -1,5 +1,6 @@
 /**********************************************************************************************************************/
-// von David
+// von David & Laszlo
+
 namespace SummHub.Model;
 
 public class NewsApiConstants
@@ -8,11 +9,11 @@ public class NewsApiConstants
     public const string ApiKeyNewsApi = "apiKey=";
     public const string TopStoriesNewsApi = "top-headlines";
     public const string SportsCategoryNewsApi = "category=sports";
-    //public const string PoliticsCategoryNewsApi = "";
     public const string ScienceCategoryNewsApi = "category=science";
     public const string BusinessCategoryNewsApi = "category=business";
     public const string EntertainmentCategoryNewsApi = "category=entertainment";
     public const string GeneralCategoryNewsApi = "category=general";
+    public const string PageLimit = "pageSize=5";
 
 }
 
