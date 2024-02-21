@@ -12,6 +12,10 @@
     margin: 0 5% 20px 5%;
 }
 
+.about-container h4 {
+    margin: 0 5% 20px 7%;
+}
+
 .about-container p {
     font-size: larger;
     text-align: justify;
