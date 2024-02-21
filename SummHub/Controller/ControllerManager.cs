@@ -20,7 +20,11 @@ public class ControllerManager
     public Category CurrentCategory { get; set; } = Category.TopStories;
     
     /*****************************************************************************************************************/
-    /// Main Pipeline for loading all Content
+    /// <summary>Main Pipeline for loading all Content</summary>
+    /// <param name="apiController">API controller to load data from</param>
+    /// <param name="category">category to load</param>
+    /// <param name="translator">API to translate articles</param>
+    /// <param name="language">language to translate to</param>
     public async Task<bool> LoadContent(IApiController apiController, Category category, 
         ITranslatorApiController translator, string language)
     {
@@ -55,6 +59,9 @@ public class ControllerManager
     }
     /*****************************************************************************************************************/
     
+    /// <summary>Get articles from specific API</summary>
+    /// <param name="apiController"> API controller to load data from</param>
+    /// <param name="category">category to load</param>
     private async Task<List<NewsArticle>> GetNews(IApiController apiController, Category category)
     {
         List<NewsArticle> articles = new();
@@ -71,11 +78,17 @@ public class ControllerManager
         return articles;
     }
 
+    /// <summary>Detect original language from article</summary>
+    /// <param name="article">article for language check</param>
     public string DetectLanguage(NewsArticle article)
     {
         return _detector.Detect(article.Title);
     }
 
+    /// <summary>Send article to translator and receive translation</summary>
+    /// <param name="article">article to be translated</param>
+    /// <param name="translator">translator used for translation</param>
+    /// <param name="language">language for translation</param>
     private async Task<NewsArticle> TranslateNews(NewsArticle article, ITranslatorApiController translator, string language)
     {
         var translatedTitle = await translator.Translate(article.Title, language);
