@@ -14,10 +14,11 @@
     height: auto;
     display: flex;
     background-color: rgba(40 40 40);
-    justify-content: space-evenly;
+    justify-content: flex-start;
     position: fixed;
     top: 75px;
     padding-top: 5px;
+    padding-left: 20px;
 }
 
 .category-button{
@@ -29,6 +30,7 @@
     font-weight: bold;
     font-size: 20px;
     border-radius: 10px;
+    margin-right: 30px;
 }
 
 .category-button-skeleton{
@@ -36,6 +38,7 @@
     height: 50px;
     border-radius: 10px;
     overflow: hidden;
+    margin-right: 30px;
 }
 
 .category-button:hover{
@@ -52,4 +55,5 @@
     border: none;
     font-weight: bold;
     font-size: 20px;
+    margin-right: 30px;
 }
